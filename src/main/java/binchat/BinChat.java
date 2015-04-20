@@ -1,6 +1,6 @@
 package binchat;
 
-import binchat.logic.ServerManager;
+import binchat.network.logic.ServerManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
