@@ -1,6 +1,8 @@
 package binchat;
 
-import binchat.network.logic.ServerConnection;
+import binchat.gui.GUIManager;
+import binchat.gui.NamePassWindow;
+import binchat.gui.ServerAddressWindow;
 import binchat.network.logic.ServerManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
@@ -13,6 +15,12 @@ public class BinChat {
 
     public static void main(String[] args) {
 
+        GUIManager guiManager = new GUIManager();
+
+    }
+
+    public static void initNetwork(String address, String port) {
+
         ServerManager serverManager = new ServerManager();
 
         EventLoopGroup group = new NioEventLoopGroup();
@@ -21,13 +29,12 @@ public class BinChat {
             bootstrap.group(group)
                     .channel(NioSocketChannel.class)
                     .handler(serverManager)
-                    .connect(new InetSocketAddress("localhost", 60010)).syncUninterruptibly();
+                    .connect(new InetSocketAddress(address, Integer.parseInt(port))).syncUninterruptibly();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             group.shutdownGracefully();
         }
-
     }
 
 }

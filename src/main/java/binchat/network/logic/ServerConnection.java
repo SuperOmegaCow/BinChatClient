@@ -4,6 +4,7 @@ import binchat.network.exception.BadPacketException;
 import binchat.network.protocol.AbstractPacketHandler;
 import binchat.network.protocol.ChannelWrapper;
 import binchat.network.protocol.PacketWrapper;
+import binchat.network.protocol.packet.handler.HandshakeHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.ReadTimeoutException;
@@ -18,11 +19,16 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
 
     public ServerConnection(ServerManager serverManager, ChannelWrapper channel) {
         this.serverManager = serverManager;
+        this.packetHandler = new HandshakeHandler(this.serverManager, this);
         this.channel = channel;
     }
 
     public ServerManager getServerManager() {
         return serverManager;
+    }
+
+    public boolean isConnected() {
+        return !channel.isClosed();
     }
 
     public void disconnect() {

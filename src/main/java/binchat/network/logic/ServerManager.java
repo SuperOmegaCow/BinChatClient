@@ -20,10 +20,13 @@ public class ServerManager extends ChannelInitializer<Channel> {
 
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("frame_decoder", new FrameDecoder());
-        pipeline.addLast("packet_decoder", new Decoder(Packets.HANDSHAKE));
         pipeline.addLast("frame_encoder", new FieldPrepender());
-        pipeline.addLast("packet_decoder", new Encoder(Packets.LOGIN));
+        pipeline.addLast("packet_decoder", new Encoder(Packets.HANDSHAKE));
         pipeline.addLast("packet_handler", this.serverConnection);
+    }
+    
+    public boolean isConnected() {
+        return serverConnection.isConnected();
     }
 
     public ServerConnection getServerConnection() {
