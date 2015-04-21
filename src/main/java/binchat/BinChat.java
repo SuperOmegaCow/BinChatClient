@@ -1,5 +1,6 @@
 package binchat;
 
+import binchat.network.logic.ServerConnection;
 import binchat.network.logic.ServerManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;

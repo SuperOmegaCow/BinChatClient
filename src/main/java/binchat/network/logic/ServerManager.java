@@ -9,12 +9,14 @@ public class ServerManager extends ChannelInitializer<Channel> {
 
     private ServerConnection serverConnection;
 
-    public ServerManager(ServerConnection serverConnection) {
-        this.serverConnection = serverConnection;
+    public ServerManager() {
+
     }
 
     @Override
     public void initChannel(Channel ch) throws Exception {
+
+        this.serverConnection = new ServerConnection(this, new ChannelWrapper(ch));
 
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("frame_decoder", new FrameDecoder());
