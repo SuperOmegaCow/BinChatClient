@@ -2,68 +2,71 @@ package binchat.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Window extends JFrame {
 
     private GUIManager guiManager;
-    private WindowState windowState;
-    private JPanel left;
-    private JPanel leftTextBox;
-    private JPanel leftChatBox;
-    private JPanel right;
-    private JPanel rightGraph;
-    private JPanel rightTextBox;
+    private JButton send;
+    private JTextField messageBox;
+    private JTextArea chatBox;
 
-    public Window(GUIManager guiManager, WindowState windowState) {
+
+    public Window(GUIManager guiManager) {
         this.guiManager = guiManager;
-        this.windowState = windowState;
     }
 
-    public WindowState getWindowState() {
-        return windowState;
-    }
-
-    public void setWindowState(WindowState windowState) {
-        this.windowState = windowState;
-    }
-
-    public void init() {
-
-        this.setSize(1000, 800);
+    public void preLogin() {
+        this.setVisible(false);
         this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("Credentials");
+        this.setSize(600, 800);
+
+        JLabel jLabel = new JLabel("Server IP");
+        final JTextField jTextField = new JTextField(20);
+        JLabel jLabel1 = new JLabel("Server Port");
+        final JTextField jTextField1 = new JTextField(20);
+        JLabel jLabel2 = new JLabel("Username");
+        final JTextField jTextField2 = new JTextField(20);
+        JLabel jLabel3 = new JLabel("Password");
+        final JTextField jTextField3 = new JTextField(20);
+
+        JButton jButton = new JButton("Enter");
+        this.setLayout(new GridLayout(8, 1));
+        this.add(jLabel);
+        this.add(jTextField);
+        this.add(jLabel1);
+        this.add(jTextField1);
+        this.add(jLabel2);
+        this.add(jTextField2);
+        this.add(jLabel3);
+        this.add(jTextField3);
+
+        this.add(jButton);
+        this.pack();
         this.setVisible(true);
-
-        this.left = new JPanel();
-        this.right = new JPanel();
-
-        left.setSize(500, 800);
-
-        this.leftTextBox = new JPanel();
-        leftTextBox.setSize(500, 600);
-        JTextArea textArea = new JTextArea();
-        leftTextBox.add(new JTextArea());
-
-
-        right.setSize(500, 800);
-
-
-        this.add(left, BorderLayout.WEST);
-        this.add(right, BorderLayout.EAST);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String serverIp = jTextField.getText();
+                String serverPort = jTextField1.getText();
+                String userName = jTextField2.getText();
+                String password = jTextField3.getText();
+                guiManager.handle(serverIp, serverPort, userName, password);
+                setVisible(false);
+                removeAll();
+            }
+        });
 
 
-
-        switch (windowState) {
-            case SERVERADDRESSWINDOW:
-                break;
-            case NAMEPASSWINDOW:
-                break;
-            case CHATWINDOW:
-                break;
-        }
     }
 
-    public void update() {
+    public void display() {
 
+        this.setVisible(false);
+        //TODO chat box and graph box
     }
 
 }
