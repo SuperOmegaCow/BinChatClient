@@ -1,8 +1,6 @@
 package binchat;
 
 import binchat.gui.GUIManager;
-import binchat.gui.NamePassWindow;
-import binchat.gui.ServerAddressWindow;
 import binchat.network.logic.ServerManager;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;

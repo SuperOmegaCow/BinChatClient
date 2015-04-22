@@ -2,8 +2,9 @@ package binchat.gui;
 
 public class GUIManager extends Thread {
 
-    private WindowState windowState;
+
     private volatile boolean running = false;
+    private Window window;
 
     public GUIManager() {
         this.start();
@@ -11,18 +12,17 @@ public class GUIManager extends Thread {
 
     @Override
     public void run() {
-        this.windowState = WindowState.SERVERADDRESSWINDOW;
         this.running = true;
+        this.window = new Window(this, WindowState.SERVERADDRESSWINDOW);
+        this.window.init();
         while (running) {
-
+            this.window.update();
+            try {
+                Thread.sleep(2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public WindowState getWindowState() {
-        return windowState;
-    }
-
-    public void setWindowState(WindowState windowState) {
-        this.windowState = windowState;
-    }
 }
