@@ -59,8 +59,6 @@ public class Window extends JFrame {
                 removeAll();
             }
         });
-
-
     }
 
     public void display() {

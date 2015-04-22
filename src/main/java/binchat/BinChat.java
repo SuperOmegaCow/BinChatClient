@@ -11,13 +11,36 @@ import java.net.InetSocketAddress;
 
 public class BinChat {
 
+    public volatile static boolean waiting = true;
+    public volatile static String serverIp;
+    public volatile static String serverPort;
+    public volatile static String username;
+    public volatile static String password;
+    private static GUIManager guiManager;
+
     public static void main(String[] args) {
 
-        GUIManager guiManager = new GUIManager();
+        guiManager = new GUIManager();
+        while (waiting) {
+            try {
+                Thread.sleep(1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        initNetwork(serverIp, serverPort, username, password);
 
     }
 
-    public static void initNetwork(String address, String port) {
+    public static void initNetwork(String address, String port, String username, String password) {
+
+        try {
+            Integer.parseInt(port);
+        } catch (Exception e) {
+            guiManager.declined();
+            return;
+        }
 
         ServerManager serverManager = new ServerManager();
 
@@ -28,8 +51,10 @@ public class BinChat {
                     .channel(NioSocketChannel.class)
                     .handler(serverManager)
                     .connect(new InetSocketAddress(address, Integer.parseInt(port))).syncUninterruptibly();
+            guiManager.accepted();
         } catch (Exception e) {
             e.printStackTrace();
+            guiManager.declined();
         } finally {
             group.shutdownGracefully();
         }

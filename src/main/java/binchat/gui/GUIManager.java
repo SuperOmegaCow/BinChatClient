@@ -1,7 +1,8 @@
 package binchat.gui;
 
-public class GUIManager extends Thread {
+import binchat.BinChat;
 
+public class GUIManager extends Thread {
 
     private volatile boolean running = false;
     private Window window;
@@ -25,8 +26,22 @@ public class GUIManager extends Thread {
         }
     }
 
+    public synchronized void accepted() {
+        this.window.display();
+    }
+
+    public synchronized void declined() {
+        this.window.preLogin();
+    }
+
     public void handle(String serverIp, String serverPort, String username, String password) {
-        //TODO check if serverIp and serverPort are good. If not reopen the window
+
+        BinChat.serverIp = serverIp;
+        BinChat.serverPort = serverPort;
+        BinChat.username = username;
+        BinChat.password = password;
+        BinChat.waiting = false;
+
     }
 
 }
