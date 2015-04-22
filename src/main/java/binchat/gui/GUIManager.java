@@ -1,28 +1,21 @@
 package binchat.gui;
 
-public class GUIManager {
+public class GUIManager extends Thread {
 
     private WindowState windowState;
+    private volatile boolean running = false;
 
     public GUIManager() {
+        this.start();
+    }
+
+    @Override
+    public void run() {
         this.windowState = WindowState.SERVERADDRESSWINDOW;
-        ServerAddressWindow serverAddressWindow = new ServerAddressWindow(new GUIManager());
-        serverAddressWindow.init();
-    }
+        this.running = true;
+        while (running) {
 
-    public void handleServerAddress(String ip, String port) {
-        System.out.println(ip + " " + port);
-        this.windowState = WindowState.NAMEPASSWINDOW;
-
-    }
-
-    public void handleNamePass(String name, String password) {
-        this.windowState = WindowState.CHATWINDOW;
-        //TODO create a window
-    }
-
-    public void handleInput(String data) {
-
+        }
     }
 
     public WindowState getWindowState() {
