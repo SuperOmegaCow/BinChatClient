@@ -16,6 +16,8 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
     private ServerManager serverManager;
     private AbstractPacketHandler packetHandler;
     private ChannelWrapper channel;
+    private String name;
+    private String password;
 
     public ServerConnection(ServerManager serverManager, ChannelWrapper channel) {
         this.serverManager = serverManager;
