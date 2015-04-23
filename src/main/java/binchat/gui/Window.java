@@ -56,7 +56,6 @@ public class Window extends JFrame {
                 String password = jTextField3.getText();
                 guiManager.handle(serverIp, serverPort, userName, password);
                 setVisible(false);
-                removeAll();
             }
         });
     }

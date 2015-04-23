@@ -31,7 +31,7 @@ public class GUIManager extends Thread {
     }
 
     public synchronized void declined() {
-        this.window.preLogin();
+        this.window.setVisible(true);
     }
 
     public void handle(String serverIp, String serverPort, String username, String password) {

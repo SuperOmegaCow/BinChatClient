@@ -23,14 +23,12 @@ public class BinChat {
         guiManager = new GUIManager();
         while (waiting) {
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
         initNetwork(serverIp, serverPort, username, password);
-
     }
 
     public static void initNetwork(String address, String port, String username, String password) {
