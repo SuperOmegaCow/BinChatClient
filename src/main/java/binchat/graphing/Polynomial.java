@@ -1,5 +1,9 @@
 package binchat.graphing;
 
-public class Polynomial {
+import java.awt.*;
 
+public class Polynomial {
+    public Polynomial(double[]){
+
+    }
 }
