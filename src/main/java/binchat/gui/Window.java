@@ -17,6 +17,7 @@ public class Window extends JFrame {
     }
 
     public void preLogin() {
+        this.removeAll();
         this.setVisible(false);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

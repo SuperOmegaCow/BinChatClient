@@ -39,7 +39,7 @@ public class GUIManager extends Thread {
     }
 
     public synchronized void declined() {
-        this.window.setVisible(true);
+        this.window.preLogin();
     }
 
     public void handle(String serverIp, String serverPort, String username, String password) {
