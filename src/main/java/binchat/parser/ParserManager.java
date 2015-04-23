@@ -97,5 +97,6 @@ public class ParserManager {
         terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
         System.out.println(terms);
         double[] output = new double[terms.size()];
+
     }
 }
