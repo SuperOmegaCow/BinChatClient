@@ -35,10 +35,14 @@ public class GUIManager extends Thread {
     }
 
     public synchronized void accepted() {
+        this.window.setVisible(false);
+        this.window = new Window(this);
         this.window.display();
     }
 
     public synchronized void declined() {
+        this.window.setVisible(false);
+        this.window = new Window(this);
         this.window.preLogin();
     }
 

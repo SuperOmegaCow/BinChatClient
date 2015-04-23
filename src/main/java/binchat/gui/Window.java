@@ -17,12 +17,11 @@ public class Window extends JFrame {
     }
 
     public void preLogin() {
-        this.removeAll();
         this.setVisible(false);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Credentials");
-        this.setSize(600, 800);
+        this.setSize(1000, 1000);
 
         JLabel jLabel = new JLabel("Server IP");
         final JTextField jTextField = new JTextField(20);
