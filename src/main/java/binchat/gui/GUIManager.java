@@ -26,6 +26,14 @@ public class GUIManager extends Thread {
         }
     }
 
+    public synchronized void handleChat(String chat) {
+
+    }
+
+    public synchronized void receiveChat(String message) {
+
+    }
+
     public synchronized void accepted() {
         this.window.display();
     }

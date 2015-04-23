@@ -12,7 +12,6 @@ public class Window extends JFrame {
     private JTextField messageBox;
     private JTextArea chatBox;
 
-
     public Window(GUIManager guiManager) {
         this.guiManager = guiManager;
     }
@@ -63,6 +62,7 @@ public class Window extends JFrame {
     public void display() {
 
         this.setVisible(false);
+        this.setResizable(false);
         //TODO chat box and graph box
     }
 
