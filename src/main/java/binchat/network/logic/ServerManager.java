@@ -10,9 +10,13 @@ public class ServerManager extends ChannelInitializer<Channel> {
 
     private ServerConnection serverConnection;
     private GUIManager guiManager;
+    private String name;
+    private String password;
 
-    public ServerManager(GUIManager guiManager) {
-
+    public ServerManager(GUIManager guiManager, String name, String password) {
+        this.guiManager = guiManager;
+        this.name = name;
+        this.password = password;
     }
 
     @Override
