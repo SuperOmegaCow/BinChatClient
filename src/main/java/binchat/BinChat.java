@@ -40,7 +40,7 @@ public class BinChat {
             return;
         }
 
-        ServerManager serverManager = new ServerManager();
+        ServerManager serverManager = new ServerManager(guiManager, username, password);
 
         EventLoopGroup group = new NioEventLoopGroup();
         try {
