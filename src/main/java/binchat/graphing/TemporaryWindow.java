@@ -23,7 +23,7 @@ public class TemporaryWindow extends JFrame{
     public void display(String chat, double xmin,double xmax, double ymin, double ymax){
         this.chat = chat;
         this.setUndecorated(true);
-        this.setSize(1200, 800);
+        this.setSize(1920, 1080);
         this.xmin = xmin;
         this.xmax = xmax;
         this.ymin = ymin;

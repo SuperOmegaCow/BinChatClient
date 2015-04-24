@@ -6,8 +6,9 @@ import java.awt.image.BufferedImage;
 
 public class GraphingManager extends Thread {
 
-    int SCREEN_WIDTH = 1200;
-    int SCREEN_HEIGHT = 800;
+    int SCREEN_WIDTH = 1920;
+    int SCREEN_HEIGHT = 1080;
+    int INTERVALS = 8;
     public GraphingManager() {
         super("Graphing Thread");
     }
@@ -48,12 +49,12 @@ public class GraphingManager extends Thread {
             scale_position = SCREEN_HEIGHT;
         else
             scale_position = yIndex(0, ymin, ymax);
-        for (int i = 0; i <= 7; i++) {
-            double x = xValue(i*SCREEN_WIDTH/7,xmin,xmax);
-            x = Math.round(x*10);
-            x = x/10;
-            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/7,scale_position);
-            g.drawLine(i*SCREEN_WIDTH/7, scale_position - 5, i*SCREEN_WIDTH/7, scale_position + 5);
+        for (int i = 0; i <= INTERVALS; i++) {
+            double x = xValue(i*SCREEN_WIDTH/INTERVALS,xmin,xmax);
+            x = Math.round(x*100);
+            x = x/100;
+            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/INTERVALS,scale_position);
+            g.drawLine(i*SCREEN_WIDTH/INTERVALS, scale_position - 5, i*SCREEN_WIDTH/INTERVALS, scale_position + 5);
         }
         g.drawLine(xIndex(0, xmin, xmax), 20, xIndex(0, xmin, xmax), SCREEN_HEIGHT);
         g.drawString("Y", xIndex(0,xmin,xmax),20);
@@ -61,12 +62,12 @@ public class GraphingManager extends Thread {
             scale_position = 0;
         else
             scale_position = xIndex(0,xmin,xmax);
-        for (int i = 0; i <= 7; i++) {
-            double y = yValue(i * SCREEN_HEIGHT / 7, ymin, ymax);
-            y = Math.round(y*10);
-            y = y/10;
-            g.drawString(String.valueOf(y),scale_position,i*SCREEN_HEIGHT/7);
-            g.drawLine(scale_position-5, i*SCREEN_HEIGHT/7, scale_position +5, i*SCREEN_HEIGHT/7);
+        for (int i = 0; i <= INTERVALS; i++) {
+            double y = yValue(i * SCREEN_HEIGHT / INTERVALS, ymin, ymax);
+            y = Math.round(y*100);
+            y = y/100;
+            g.drawString(String.valueOf(y),scale_position,i*SCREEN_HEIGHT/INTERVALS);
+            g.drawLine(scale_position-5, i*SCREEN_HEIGHT/INTERVALS, scale_position +5, i*SCREEN_HEIGHT/INTERVALS);
         }
         g.setColor(Color.RED);
         double previous_x = xValue(0,xmin,xmax);

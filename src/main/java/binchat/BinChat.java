@@ -35,7 +35,7 @@ public class BinChat {
         temporaryWindow.display(chat,xmin,xmax,ymin,ymax);*/
         /*
 x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200
--8.7 7.8 -350000 900000
+-9 9 -350000 900000
         */
 
         guiManager = new GUIManager();
