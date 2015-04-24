@@ -6,8 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class GraphingManager extends Thread {
 
-    int SCREEN_WIDTH = 500;
-    int SCREEN_HEIGHT = 600;
+    int SCREEN_WIDTH = 1200;
+    int SCREEN_HEIGHT = 800;
     public GraphingManager() {
         super("Graphing Thread");
     }
@@ -33,11 +33,11 @@ public class GraphingManager extends Thread {
 
         // TODO if no max/min given, choose fitting frame
     public BufferedImage plotFunction(Polynomial poly, double xmin, double xmax, double ymin, double ymax){
-        BufferedImage buffimg = new BufferedImage(500, 600, BufferedImage.TYPE_INT_RGB);
+        BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) buffimg.getGraphics();
         g.setBackground(Color.white);
         g.setColor(Color.white);
-        g.fillRect(0, 0, 500, 600);
+        g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Serif", Font.PLAIN, 20));
         g.drawLine(0, yIndex(0, ymin, ymax), SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
