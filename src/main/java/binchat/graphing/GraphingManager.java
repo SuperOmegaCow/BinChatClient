@@ -43,19 +43,28 @@ public class GraphingManager extends Thread {
         g.drawLine(0, yIndex(0, ymin, ymax), SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
         g.drawString("X", SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
         // x axis ticks
-        for (int i = 0; i < 7; i++) {
+        int scale_position;
+        if(yIndex(0, ymin, ymax) < 0 ||SCREEN_HEIGHT<yIndex(0,ymin,ymax))
+            scale_position = SCREEN_HEIGHT;
+        else
+            scale_position = yIndex(0, ymin, ymax);
+        for (int i = 0; i <= 7; i++) {
             double x = xValue(i*SCREEN_WIDTH/7,xmin,xmax);
             x = Math.round(x*10);
             x = x/10;
-            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/7,yIndex(0,ymin,ymax));
+            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/7,scale_position);
         }
         g.drawLine(xIndex(0, xmin, xmax), 20, xIndex(0, xmin, xmax), SCREEN_HEIGHT);
         g.drawString("Y", xIndex(0,xmin,xmax),20);
-        for (int i = 0; i < 7; i++) {
+        if(xIndex(0,xmin,xmax) < 0 ||SCREEN_WIDTH<xIndex(0,xmin,xmax))
+            scale_position = 0;
+        else
+            scale_position = xIndex(0,xmin,xmax);
+        for (int i = 0; i <= 7; i++) {
             double y = yValue(i * SCREEN_HEIGHT / 7, ymin, ymax);
             y = Math.round(y*10);
             y = y/10;
-            g.drawString(String.valueOf(y),xIndex(0,xmin,xmax),i*SCREEN_HEIGHT/7);
+            g.drawString(String.valueOf(y),scale_position,i*SCREEN_HEIGHT/7);
         }
         g.setColor(Color.RED);
         double previous_x = xValue(0,xmin,xmax);
