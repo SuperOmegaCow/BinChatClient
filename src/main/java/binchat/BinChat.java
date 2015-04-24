@@ -22,7 +22,7 @@ public class BinChat {
     private static GUIManager guiManager;
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        /*Scanner in = new Scanner(System.in);
         System.out.println("Please input the equation of the line you wish to draw, then the window coordinates.");
         String chat = in.nextLine();
         double xmin = in.nextDouble();
@@ -32,25 +32,21 @@ public class BinChat {
         System.out.println(xmin + "    " + xmax + "    " + ymin + "    " + ymax);
         ParserManager parserManager = new ParserManager();
         TemporaryWindow temporaryWindow = new TemporaryWindow();
-        temporaryWindow.display(chat,xmin,xmax,ymin,ymax);
+        temporaryWindow.display(chat,xmin,xmax,ymin,ymax);*/
         /*
 x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200
 -8.7 7.8 -350000 900000
         */
 
-
-        //parserManager.mathParser();
-        //guiManager = new GUIManager();
-
-        /*while (waiting) {
+        guiManager = new GUIManager();
+        while (waiting) {
             try {
                 Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }*/
-        //TODO re-enable after Demo
-        //initNetwork(serverIp, serverPort, username, password);
+        }
+        initNetwork(serverIp, serverPort, username, password);
     }
 
     public static void initNetwork(String address, String port, String username, String password) {

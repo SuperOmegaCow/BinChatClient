@@ -23,6 +23,7 @@ public class Decoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         ByteBuf copy = in.copy();
         int packetId = DefinedPacket.readVarInt(in);
+        System.out.println("In " + packetId);
         DefinedPacket packet = null;
         if (protocolData.hasPacket(packetId)) {
             packet = protocolData.createPacket(packetId);

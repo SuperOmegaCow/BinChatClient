@@ -18,6 +18,7 @@ public class Encoder extends MessageToByteEncoder<DefinedPacket> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, DefinedPacket msg, ByteBuf out) throws Exception {
+        System.out.println("Out: " + protocolData.getId(msg.getClass()));
         DefinedPacket.writeVarInt(protocolData.getId(msg.getClass()), out);
         msg.write(out);
     }
