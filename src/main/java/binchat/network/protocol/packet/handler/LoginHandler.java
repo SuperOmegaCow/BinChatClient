@@ -4,6 +4,7 @@ import binchat.network.logic.ServerConnection;
 import binchat.network.logic.ServerManager;
 import binchat.network.logic.State;
 import binchat.network.protocol.AbstractPacketHandler;
+import binchat.network.protocol.packet.Kick;
 import binchat.network.protocol.packet.login.LoginSuccess;
 import binchat.network.protocol.packet.login.PasswordRequest;
 import binchat.network.protocol.packet.login.PasswordResponse;
@@ -24,6 +25,11 @@ public class LoginHandler extends AbstractPacketHandler {
     public void handle(LoginSuccess loginSuccess) throws Exception {
         this.getServerConnection().setState(State.CHAT);
         this.getServerManager().getGuiManager().login();
+    }
+
+    @Override
+    public void handle(Kick kick) throws Exception {
+
     }
 
 }

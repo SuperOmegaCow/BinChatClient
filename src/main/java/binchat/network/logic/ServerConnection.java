@@ -13,35 +13,22 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.handler.timeout.ReadTimeoutException;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ServerConnection extends ChannelInboundHandlerAdapter {
 
     private ServerManager serverManager;
     private AbstractPacketHandler packetHandler;
     private ChannelWrapper channel;
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
     private State state = State.HANDSHAKE;
 
     public ServerConnection(ServerManager server, ChannelWrapper channel) {
         this.serverManager = server;
         this.packetHandler = new HandshakeHandler(this.serverManager, this);
         this.channel = channel;
-        this.executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(10);
-                    sendPacket(new Handshake(2));
-                    setState(State.LOGIN);
-                    Thread.sleep(10);
-                    sendPacket(new LoginStart(serverManager.getName()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        this.channel.getHandle().pipeline().addLast("packet_handler", this);
+        sendPacket(new Handshake(2));
+        setState(State.LOGIN);
+        sendPacket(new LoginStart(serverManager.getName()));
     }
 
     public void setState(State state) {
@@ -51,18 +38,18 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
 
     private void setProtocolState(State state) {
         ChannelPipeline pipeline = this.channel.getHandle().pipeline();
-        if(state == State.HANDSHAKE) {
+        if (state == State.HANDSHAKE) {
             this.setHandler(new HandshakeHandler(this.serverManager, this));
-            ((Decoder)pipeline.get("packet_decoder")).setProtocolData(Packets.HANDSHAKE);
-            ((Encoder)pipeline.get("packet_encoder")).setProtocolData(Packets.HANDSHAKE);
-        } else if(state == State.LOGIN) {
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.HANDSHAKE);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.HANDSHAKE);
+        } else if (state == State.LOGIN) {
             this.setHandler(new LoginHandler(this.serverManager, this));
-            ((Decoder)pipeline.get("packet_decoder")).setProtocolData(Packets.LOGIN);
-            ((Encoder)pipeline.get("packet_encoder")).setProtocolData(Packets.LOGIN);
-        } else if(state == State.CHAT) {
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.LOGIN);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.LOGIN);
+        } else if (state == State.CHAT) {
             this.setHandler(new ChatHandler(this.serverManager, this));
-            ((Decoder)pipeline.get("packet_decoder")).setProtocolData(Packets.CHAT);
-            ((Encoder)pipeline.get("packet_encoder")).setProtocolData(Packets.CHAT);
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.CHAT);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.CHAT);
         }
     }
 
