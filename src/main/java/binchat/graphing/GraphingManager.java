@@ -16,6 +16,8 @@ public class GraphingManager extends Thread {
     @Override
     public void run() {
 
+
+
     }
     // gets the x double value for a give pixel
     public double xValue(int x_pixel_index, double lower_x, double upper_x){
