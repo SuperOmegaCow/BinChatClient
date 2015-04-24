@@ -31,6 +31,18 @@ public class ServerManager extends ChannelInitializer<Channel> {
         pipeline.addLast("packet_handler", this.serverConnection);
 
     }
+
+    public GUIManager getGuiManager() {
+        return guiManager;
+    }
+
+    public void outbound(String message) {
+
+    }
+
+    public void inbound(String message) {
+        this.guiManager.inbound(message);
+    }
     
     public boolean isConnected() {
         return serverConnection.isConnected();
@@ -40,4 +52,11 @@ public class ServerManager extends ChannelInitializer<Channel> {
         return serverConnection;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

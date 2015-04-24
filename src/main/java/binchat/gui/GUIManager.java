@@ -1,9 +1,11 @@
 package binchat.gui;
 
 import binchat.BinChat;
+import binchat.network.logic.ServerManager;
 
 public class GUIManager extends Thread {
 
+    private ServerManager serverManager;
     private volatile boolean running = false;
     private Window window;
 
@@ -26,12 +28,20 @@ public class GUIManager extends Thread {
         }
     }
 
-    public synchronized void handleChat(String chat) {
+    public void login() {
 
     }
 
-    public synchronized void receiveChat(String message) {
+    public void setServerManager(ServerManager serverManager) {
+        this.serverManager = serverManager;
+    }
 
+    public synchronized void inbound(String chat) {
+
+    }
+
+    public synchronized void outbound(String message) {
+        this.serverManager.outbound(message);
     }
 
     public synchronized void accepted() {
