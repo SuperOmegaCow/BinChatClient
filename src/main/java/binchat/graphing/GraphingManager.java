@@ -44,7 +44,7 @@ public class GraphingManager extends Thread {
         g.drawString("X", SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
         // x axis ticks
         int scale_position;
-        if(yIndex(0, ymin, ymax) < 0 ||SCREEN_HEIGHT<yIndex(0,ymin,ymax))
+        if(yIndex(0, ymin, ymax) < 0 ||SCREEN_HEIGHT<yIndex(0, ymin, ymax))
             scale_position = SCREEN_HEIGHT;
         else
             scale_position = yIndex(0, ymin, ymax);
@@ -53,6 +53,7 @@ public class GraphingManager extends Thread {
             x = Math.round(x*10);
             x = x/10;
             g.drawString(String.valueOf(x),i*SCREEN_WIDTH/7,scale_position);
+            g.drawLine(i*SCREEN_WIDTH/7, scale_position - 5, i*SCREEN_WIDTH/7, scale_position + 5);
         }
         g.drawLine(xIndex(0, xmin, xmax), 20, xIndex(0, xmin, xmax), SCREEN_HEIGHT);
         g.drawString("Y", xIndex(0,xmin,xmax),20);
@@ -65,6 +66,7 @@ public class GraphingManager extends Thread {
             y = Math.round(y*10);
             y = y/10;
             g.drawString(String.valueOf(y),scale_position,i*SCREEN_HEIGHT/7);
+            g.drawLine(scale_position-5, i*SCREEN_HEIGHT/7, scale_position +5, i*SCREEN_HEIGHT/7);
         }
         g.setColor(Color.RED);
         double previous_x = xValue(0,xmin,xmax);
