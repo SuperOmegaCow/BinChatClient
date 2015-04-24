@@ -49,11 +49,11 @@ public class GraphingManager extends Thread {
             scale_position = SCREEN_HEIGHT;
         else
             scale_position = yIndex(0, ymin, ymax);
-        for (int i = 0; i <= INTERVALS; i++) {
+        for (int i = 0; i < INTERVALS; i++) {
             double x = xValue(i*SCREEN_WIDTH/INTERVALS,xmin,xmax);
             x = Math.round(x*100);
             x = x/100;
-            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/INTERVALS,scale_position);
+            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/INTERVALS + 5,scale_position-5);
             g.drawLine(i*SCREEN_WIDTH/INTERVALS, scale_position - 5, i*SCREEN_WIDTH/INTERVALS, scale_position + 5);
         }
         g.drawLine(xIndex(0, xmin, xmax), 20, xIndex(0, xmin, xmax), SCREEN_HEIGHT);
@@ -62,11 +62,11 @@ public class GraphingManager extends Thread {
             scale_position = 0;
         else
             scale_position = xIndex(0,xmin,xmax);
-        for (int i = 0; i <= INTERVALS; i++) {
+        for (int i = 1; i <= INTERVALS; i++) {
             double y = yValue(i * SCREEN_HEIGHT / INTERVALS, ymin, ymax);
             y = Math.round(y*100);
             y = y/100;
-            g.drawString(String.valueOf(y),scale_position,i*SCREEN_HEIGHT/INTERVALS);
+            g.drawString(String.valueOf(y),scale_position + 5,i*SCREEN_HEIGHT/INTERVALS + 5);
             g.drawLine(scale_position-5, i*SCREEN_HEIGHT/INTERVALS, scale_position +5, i*SCREEN_HEIGHT/INTERVALS);
         }
         g.setColor(Color.RED);
