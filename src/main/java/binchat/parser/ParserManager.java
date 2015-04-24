@@ -1,5 +1,7 @@
 package binchat.parser;
 
+import binchat.graphing.Polynomial;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,19 +49,10 @@ public class ParserManager {
     }
     // removing command
 
-    public int getExponent(String chat_line, int degree_index){
-        int end_index = degree_index;
-        while (end_index<chat_line.length()){ // will scan the string until it reaches a + or - sign (this is for degrees of 10 or higher)
-            if (chat_line.charAt(end_index) == '+' || chat_line.charAt(end_index) == '-'){
-                break;
-            }
-            end_index ++;
-        }
-        return end_index;
-    }
-    public void mathParser(String chat_line){
+    public Polynomial mathParser(String chat_line){
         // Parses a polynomial of the form
-        chat_line = chat_line.toLowerCase().replace(" ", "");
+        chat_line = chat_line.toLowerCase().replace(" ", "").replace("y=", "");
+        String equation = "y="+chat_line;
         List<Double> terms = new ArrayList<Double>(); // will have a list of all coefficients
         terms.add(0,0.0);
         terms.add(0,0.0); // populates the basic polynomial, a binomial
@@ -67,6 +60,10 @@ public class ParserManager {
             System.out.println(chat_line);
             if(chat_line.substring(0,1).equals("+")) chat_line = chat_line.substring(1,chat_line.length()); // removes + in front of coefficient
             int x_index = chat_line.indexOf("x");
+            double coefficent;
+            if (x_index == 0) coefficent = 1;
+            else coefficent = Double.parseDouble(chat_line.substring(0, x_index));
+
             if(chat_line.substring(x_index+1,x_index+2).equals("^")) { // if after the x there is a caret
                 int degree_index = x_index + 2;
                 int end_index = degree_index;
@@ -83,20 +80,26 @@ public class ParserManager {
                         terms.add(terms.size()-1,0.0);
                     }
                 }
-                terms.set(degree,terms.get(degree)+Double.parseDouble(chat_line.substring(0, x_index)));
+                terms.set(degree, terms.get(degree) +coefficent);
                 chat_line = chat_line.substring(end_index, chat_line.length()); // shortens the string starting at the +/- sign
             }
             else{
                 // If it does not have a caret, it is of degree 1
-                terms.set(1, terms.get(1) + Double.parseDouble(chat_line.substring(0, x_index)));
-                chat_line = chat_line.substring(x_index+1,chat_line.length()); // TODO, rework so that it won't crash it the last remaining term is x
+                terms.set(1, terms.get(1) + coefficent);
+                if(x_index+1 != chat_line.length()) chat_line = chat_line.substring(x_index+1,chat_line.length());
+                else chat_line = "";
             };
         }
         // once it finishes parsing the x terms, we need to add the constant term, represented as the zeroith degree
         chat_line.replace("+", "").replace(" ", "");
-        terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
+        if(chat_line.length()>0) terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
         System.out.println(terms);
+        // convert it to an array
         double[] output = new double[terms.size()];
-
+        for (int i = 0; i < terms.size(); i++) {
+            output[i] = terms.get(i);
+        }
+        Polynomial p = new Polynomial(output,equation);
+        return p;
     }
 }

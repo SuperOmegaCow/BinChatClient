@@ -54,11 +54,13 @@ public class Window extends JFrame {
                 String userName = jTextField2.getText();
                 String password = jTextField3.getText();
                 guiManager.handle(serverIp, serverPort, userName, password);
-                setVisible(false);
+                //setVisible(false);
             }
         });
     }
-
+    public void chatWindow(){
+        this.removeAll();
+    }
     public void display() {
 
         this.setVisible(false);
