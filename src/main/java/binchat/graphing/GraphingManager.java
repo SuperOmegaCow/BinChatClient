@@ -67,6 +67,7 @@ public class GraphingManager extends Thread {
             previous_x = current_x;
             previous_y = current_y;
         }
+        g.drawString(poly.equation, 10, 40);
         return buffimg;
     }
 }
