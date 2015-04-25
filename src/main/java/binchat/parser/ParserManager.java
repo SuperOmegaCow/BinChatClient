@@ -24,7 +24,7 @@ public class ParserManager {
 
         }
         else if(command.equals("graph")){
-
+            mathParser(chat_line.substring(5,chat_line.length()));
         }
         else if(command.equals("factor")){
 
@@ -33,7 +33,13 @@ public class ParserManager {
 
         }
         else if(command.equals("help")){
-
+            System.out.println(
+                            "/calculate will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4 3\n" +
+                            "/disconnect\n" +
+                            "/evaluate\n" +
+                            "/factor\n" +
+                            "/help\n" +
+                            "/kick");
         }
         else{
 

@@ -68,7 +68,7 @@ public class GraphingManager extends Thread {
             double y = yValue(i * SCREEN_HEIGHT / INTERVALS, ymin, ymax);
             y = Math.round(y*100);
             y = y/100;
-            g.drawString(String.valueOf(y),scale_position + 5,i*SCREEN_HEIGHT/INTERVALS + 5);
+            g.drawString(String.valueOf(y),scale_position + 10,i*SCREEN_HEIGHT/INTERVALS + 5);
             g.drawLine(scale_position-5, i*SCREEN_HEIGHT/INTERVALS, scale_position +5, i*SCREEN_HEIGHT/INTERVALS);
         }
         g.setColor(Color.RED);
