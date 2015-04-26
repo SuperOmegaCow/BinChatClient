@@ -3,6 +3,7 @@ package binchat.graphing;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 public class GraphingManager extends Thread {
 
@@ -36,6 +37,7 @@ public class GraphingManager extends Thread {
 
         // TODO if no max/min given, choose fitting frame
     public BufferedImage plotFunction(Polynomial poly, double xmin, double xmax, double ymin, double ymax){
+        DecimalFormat df = new DecimalFormat("#.##");
         BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) buffimg.getGraphics();
         g.setBackground(Color.white);
@@ -43,34 +45,51 @@ public class GraphingManager extends Thread {
         g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        // draw x-axis
         g.drawLine(0, yIndex(0, ymin, ymax), SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
         g.drawString("X", SCREEN_WIDTH - 20, yIndex(0, ymin, ymax));
-        // x axis ticks
-        int scale_position;
+
+        // x axis ticks and scale labelling
+        int y_position;
+        // if axis is off screen, set y-position along bottom of the screen
         if(yIndex(0, ymin, ymax) < 0 ||SCREEN_HEIGHT<yIndex(0, ymin, ymax))
-            scale_position = SCREEN_HEIGHT;
+            y_position = SCREEN_HEIGHT;
+        // else set y position along the axis
         else
-            scale_position = yIndex(0, ymin, ymax);
+            y_position = yIndex(0, ymin, ymax);
+        // draws ticks and labels them
         for (int i = 0; i < INTERVALS; i++) {
             double x = xValue(i*SCREEN_WIDTH/INTERVALS,xmin,xmax);
             x = Math.round(x*100);
             x = x/100;
-            g.drawString(String.valueOf(x),i*SCREEN_WIDTH/INTERVALS + 5,scale_position-5);
-            g.drawLine(i*SCREEN_WIDTH/INTERVALS, scale_position - 5, i*SCREEN_WIDTH/INTERVALS, scale_position + 5);
+            int x_position = i*SCREEN_WIDTH/INTERVALS;
+            g.drawString(String.valueOf(df.format(x)),x_position + 5,y_position-5);
+            g.drawLine(x_position, y_position - 5, x_position, y_position + 5);
         }
+        // draw y-axis
         g.drawLine(xIndex(0, xmin, xmax), 20, xIndex(0, xmin, xmax), SCREEN_HEIGHT);
         g.drawString("Y", xIndex(0,xmin,xmax),20);
+
+        int x_position;
+        // if axis is off screen, set x-position along left of the screen
         if(xIndex(0,xmin,xmax) < 0 ||SCREEN_WIDTH<xIndex(0,xmin,xmax))
-            scale_position = 0;
+            x_position = 0;
+        // else set x position along the axis
         else
-            scale_position = xIndex(0,xmin,xmax);
+            x_position = xIndex(0,xmin,xmax);
+
+        // draws ticks and labels them
         for (int i = 1; i <= INTERVALS; i++) {
             double y = yValue(i * SCREEN_HEIGHT / INTERVALS, ymin, ymax);
             y = Math.round(y*100);
             y = y/100;
-            g.drawString(String.valueOf(y),scale_position + 10,i*SCREEN_HEIGHT/INTERVALS + 5);
-            g.drawLine(scale_position-5, i*SCREEN_HEIGHT/INTERVALS, scale_position +5, i*SCREEN_HEIGHT/INTERVALS);
+            y_position = i*SCREEN_HEIGHT/INTERVALS;
+            g.drawString(String.valueOf(df.format(y)),x_position + 10,y_position + 5);
+            g.drawLine(x_position-5, y_position, x_position +5, y_position);
         }
+
+        // Graphs the function
         g.setColor(Color.RED);
         double previous_x = xValue(0,xmin,xmax);
         double previous_y = poly.evaluate(previous_x);
@@ -81,7 +100,8 @@ public class GraphingManager extends Thread {
             previous_x = current_x;
             previous_y = current_y;
         }
-        g.drawString(poly.equation, 10, 40);
+        // labels the function at the top of the screen
+        g.drawString(poly.getEquation(), 10, 40);
         return buffimg;
     }
 }

@@ -58,7 +58,6 @@ public class ParserManager {
     public Polynomial mathParser(String chat_line){
         // Parses a polynomial of the form
         chat_line = chat_line.toLowerCase().replace(" ", "").replace("y=", "");
-        String equation = "y = "+chat_line;
         List<Double> terms = new ArrayList<Double>(); // will have a list of all coefficients
         terms.add(0,0.0);
         terms.add(0,0.0); // populates the basic polynomial, a binomial
@@ -105,7 +104,6 @@ public class ParserManager {
         for (int i = 0; i < terms.size(); i++) {
             output[i] = terms.get(i);
         }
-        Polynomial p = new Polynomial(output,equation);
-        return p;
+        return new Polynomial(output);
     }
 }
