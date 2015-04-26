@@ -21,6 +21,8 @@ public class Encoder extends MessageToByteEncoder<DefinedPacket> {
         System.out.println("Out: " + protocolData.getId(msg.getClass()));
         DefinedPacket.writeVarInt(protocolData.getId(msg.getClass()), out);
         msg.write(out);
+        System.out.println(out.readableBytes());
+        System.out.println(out.isReadable());
     }
 
     public void setProtocolData(Packets.ProtocolData protocolData) {

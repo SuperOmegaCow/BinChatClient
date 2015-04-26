@@ -20,15 +20,13 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
     private AbstractPacketHandler packetHandler;
     private ChannelWrapper channel;
     private State state = State.HANDSHAKE;
+    private Decoder decoder;
+    private Encoder encoder;
 
     public ServerConnection(ServerManager server, ChannelWrapper channel) {
         this.serverManager = server;
         this.packetHandler = new HandshakeHandler(this.serverManager, this);
         this.channel = channel;
-        this.channel.getHandle().pipeline().addLast("packet_handler", this);
-        sendPacket(new Handshake(2));
-        setState(State.LOGIN);
-        sendPacket(new LoginStart(serverManager.getName()));
     }
 
     public void setState(State state) {
@@ -40,16 +38,16 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
         ChannelPipeline pipeline = this.channel.getHandle().pipeline();
         if (state == State.HANDSHAKE) {
             this.setHandler(new HandshakeHandler(this.serverManager, this));
-            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.HANDSHAKE);
-            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.HANDSHAKE);
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(ServerManager.HANDSHAKE);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(ServerManager.HANDSHAKE);
         } else if (state == State.LOGIN) {
             this.setHandler(new LoginHandler(this.serverManager, this));
-            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.LOGIN);
-            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.LOGIN);
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(ServerManager.LOGIN);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(ServerManager.LOGIN);
         } else if (state == State.CHAT) {
             this.setHandler(new ChatHandler(this.serverManager, this));
-            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(Packets.CHAT);
-            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(Packets.CHAT);
+            ((Decoder) pipeline.get("packet_decoder")).setProtocolData(ServerManager.CHAT);
+            ((Encoder) pipeline.get("packet_encoder")).setProtocolData(ServerManager.CHAT);
         }
     }
 

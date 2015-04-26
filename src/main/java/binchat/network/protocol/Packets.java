@@ -19,6 +19,8 @@ public enum Packets {
     HANDSHAKE {
         {
             OUTBOUND.registerPacket(0, Handshake.class);
+
+            INBOUND.registerPacket(0, Handshake.class);
         }
     },
 
