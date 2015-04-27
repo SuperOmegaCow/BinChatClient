@@ -1,5 +1,6 @@
 package binchat;
 
+import binchat.graphing.Polynomial;
 import binchat.graphing.TemporaryWindow;
 import binchat.gui.GUIManager;
 import binchat.network.logic.ServerManager;
@@ -22,6 +23,16 @@ public class BinChat {
     private static GUIManager guiManager;
 
     public static void main(String[] args) {
+        Polynomial p = new Polynomial(new double[]{1,2,3,4});
+        System.out.println(p.getEquation());
+        Polynomial q = new Polynomial(new double[]{2,3,4,5});
+        System.out.println(q.getEquation());
+        Polynomial mult = p.multiply(q);
+        System.out.println(mult.getEquation());
+        Polynomial add = p.add(q);
+        System.out.println(add.getEquation());
+        Polynomial sub = p.subtract(q);
+        System.out.println(sub.getEquation());
         /*Scanner in = new Scanner(System.in);
         System.out.println("Please input the equation of the line you wish to draw, then the window coordinates.");
         String chat = in.nextLine();

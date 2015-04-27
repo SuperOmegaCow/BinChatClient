@@ -70,7 +70,7 @@ public class Polynomial {
         return this.add(other);
     }
     public Polynomial multiply(Polynomial other){
-        int degree = this.terms.length + other.terms.length;
+        int degree = this.terms.length + other.terms.length-1;
         double[] new_terms = new double[degree];
         // populate new_terms with 0s
         for (int i = 0; i < new_terms.length; i++) {
@@ -79,7 +79,7 @@ public class Polynomial {
         for (int i = 0; i < this.terms.length; i++) {
             for (int j = 0; j < other.terms.length; j++) {
                 int current_degree = i+j;
-                new_terms[current_degree] += this.terms[i]*other.terms[i];
+                new_terms[current_degree] += (this.terms[i]*other.terms[j]);
             }
         }
         return new Polynomial(new_terms);
