@@ -59,14 +59,12 @@ public abstract class DefinedPacket {
         while (true) {
             in = input.readByte();
             out |= (in & 0x7F) << (bytes++ * 7);
-
             if (bytes > maxBytes) {
                 throw new RuntimeException("VarInt too big");
             }
             if ((in & 0x80) != 0x80) {
                 break;
             }
-
         }
         return out;
     }

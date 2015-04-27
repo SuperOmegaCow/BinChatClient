@@ -41,8 +41,8 @@ public class Decoder extends ByteToMessageDecoder {
         this.protocolData = protocolData;
     }
 
-    public void setProtocolData(Packets protocolData1) {
-        this.protocolData = protocolData1.INBOUND;
+    public void setProtocolData(Packets protocolData) {
+        this.protocolData = protocolData.INBOUND;
     }
 
 }
