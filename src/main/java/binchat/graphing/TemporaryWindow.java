@@ -12,12 +12,10 @@ import java.awt.image.BufferedImage;
 public class TemporaryWindow extends JFrame{
     String chat;
     double xmin, xmax, ymin, ymax;
+    Image img;
+    Polynomial polynomial;
     @Override
     public void paint(Graphics g) {
-        GraphingManager graphingManager = new GraphingManager();
-        ParserManager parserManager = new ParserManager();
-        Polynomial p = parserManager.mathParser(chat);
-        Image img = graphingManager.plotFunction(p, xmin,xmax,ymin,ymax);
         g.drawImage(img, 0, 0, this);
     }
     public void display(String chat, double xmin,double xmax, double ymin, double ymax){
@@ -28,6 +26,10 @@ public class TemporaryWindow extends JFrame{
         this.xmax = xmax;
         this.ymin = ymin;
         this.ymax = ymax;
+        GraphingManager graphingManager = new GraphingManager();
+        ParserManager parserManager = new ParserManager();
+        this.polynomial = parserManager.mathParser(chat);
+        this.img = graphingManager.plotFunction(polynomial, xmin,xmax,ymin,ymax);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
