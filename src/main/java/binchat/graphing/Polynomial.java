@@ -118,27 +118,9 @@ public class Polynomial {
 
     }
     */
-    /*
+
     public ArrayList<Double> getRoots(){
-        // scan for estimates
-        double accuracy = 25;
-        double previous = this.evaluate(-accuracy-0.5);
-        double current = this.evaluate(-accuracy-0.25);
-        boolean increasing;
-        if (current>previous) increasing = true;
-        else increasing = false;
-        ArrayList<Double> temp = new ArrayList<Double>();
-        ArrayList<Double> fin = new ArrayList<Double>();
-        // gets rough estimate by testing integer values within the defined accuracy range
-        for (double x = -accuracy; x <= accuracy; x+=0.25) {
-            previous = current;
-            current = this.evaluate(x);
-            if (current==0) fin.add(x);
-        }
-
-        // find derivative
-
-        // check derivative at estimate
-    }*/
+        
+    }
 
 }

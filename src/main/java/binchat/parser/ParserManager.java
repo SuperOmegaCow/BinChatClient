@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserManager {
+
     TemporaryWindow temporaryWindow;
 
     public ParserManager() {
@@ -38,26 +39,25 @@ public class ParserManager {
                 boolean graphable = true;
                 chat_line = chat_line.replace(" ", "");
                 if (chat_line.length() > 5) {
-                    if (chat_line.contains(",")) {
-                        int currentIndex = 0;
-                        int[] commas = new int[4];
-                        double[] screenCoordinates = new double[4];
-                        for (int i = 0; i < commas.length; i++) {
-                            commas[i] = chat_line.indexOf(",", currentIndex);
-                            if (commas[i] == -1) {
-                                System.out.println("ERROR in graphing. Looking for 5 parameters, found " + (1 + i));
-                                graphable = false;
-                                break;
-                            }
-                            currentIndex = commas[i] + 1;
+                    int currentIndex = 0;
+                    int[] commas = new int[4];
+                    double[] screenCoordinates = new double[4];
+                    for (int i = 0; i < commas.length; i++) {
+                        commas[i] = chat_line.indexOf(",", currentIndex);
+                        if (commas[i] == -1) {
+                            System.out.println("ERROR in graphing. Looking for 5 parameters, found " + (1 + i));
+                            graphable = false;
+                            break;
                         }
-                        if (graphable) {
-                            for (int i = 0; i < screenCoordinates.length - 1; i++) {
-                                screenCoordinates[i] = Double.parseDouble(chat_line.substring(commas[i] + 1, commas[i + 1]));
-                            }
-                            screenCoordinates[screenCoordinates.length - 1] = Double.parseDouble(chat_line.substring(commas[commas.length - 1] + 1, chat_line.length()));
-                            temporaryWindow.display(mathParser(chat_line.substring(5, commas[0])), screenCoordinates[0], screenCoordinates[1], screenCoordinates[2], screenCoordinates[3]);
+                        currentIndex = commas[i] + 1;
+                    }
+                    if (graphable) {
+                        for (int i = 0; i < screenCoordinates.length - 1; i++) {
+                            screenCoordinates[i] = Double.parseDouble(chat_line.substring(commas[i] + 1, commas[i + 1]));
                         }
+                        screenCoordinates[screenCoordinates.length - 1] = Double.parseDouble(chat_line.substring(commas[commas.length - 1] + 1, chat_line.length()));
+                        temporaryWindow.display(mathParser(chat_line.substring(5, commas[0])), screenCoordinates[0], screenCoordinates[1], screenCoordinates[2], screenCoordinates[3]);
+
                     }
                 } else {
                     System.out.println("ERROR in graphing. Looking for 5 parameters, found 0.");
@@ -99,6 +99,7 @@ public class ParserManager {
         help
          */
     }
+
     // removing command
 
     public Polynomial mathParser(String chat_line) {
