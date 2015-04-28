@@ -34,7 +34,9 @@ public class BinChat {
 
             }
         });*/
-        Polynomial p = new Polynomial(new double[]{1,2,3,4});
+        Polynomial p = new Polynomial(new double[]{235200,-192080,-70117,23520,4371,-792,-111,8,1});
+        ///graph x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200,-9, 9, -350000, 900000
+        System.out.println(p.getRoots());
         System.out.println(p.getEquation());
         Polynomial q = new Polynomial(new double[]{2,3,4,5});
         System.out.println(q.getEquation());

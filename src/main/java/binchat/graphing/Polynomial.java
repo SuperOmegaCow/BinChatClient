@@ -1,5 +1,7 @@
 package binchat.graphing;
 
+import binchat.network.logic.State;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,9 @@ public class Polynomial {
 
     double[] terms;
     double remainder;
+    private static final double INTERVAL = 0.001;
+    private static final double RANGE = 1000;
+    private static double ACCURACY = 0.001D;
 
     public Polynomial(double[] terms) {
         this.terms = terms;
@@ -124,30 +129,27 @@ public class Polynomial {
 
     }
     */
-
-    public ArrayList<Double> getRealRoots() {
-        ArrayList<Double> root = new ArrayList<>();
-        final double a = this.terms[0];
-        final double b = this.terms[this.terms.length - 1];
-        final double acc = 0.001D;
-        List<Double> possibilities = new ArrayList<>();
-        possibilities.add(a);
-        possibilities.add(-a);
-        possibilities.add(b);
-        possibilities.add(-b);
-        possibilities.add(b/a);
-        possibilities.add(-b/a);
-        possibilities.add(a/b);
-        possibilities.add(-a/b);
-        for(Double d : possibilities) {
-            double y = this.evaluate(d);
-            if(y == 0D) {
-                if(d == -0.0D)
-                    d = 0.0D;
-                root.add(d);
+    
+    public ArrayList<Double> getRoots() {
+        double ACCURACY = 1D;
+        ArrayList<Double> roots = new ArrayList<Double>();
+        ArrayList<Double> refined = new ArrayList<Double>();
+        for (double i = -RANGE; i < RANGE; i += INTERVAL) {
+            double y = this.evaluate(i);
+            if (y > -ACCURACY && y < ACCURACY) {
+                roots.add(i);
             }
         }
-        return root;
+        for (int i = 0; i < roots.size(); i++) {
+            try {
+                if (roots.get(i) + INTERVAL != roots.get(i + 1)) {
+                    refined.add((double)Math.round(roots.get(i)*100)/100);
+                }
+            } catch (Exception e) {
+                refined.add((double)Math.round(roots.get(i)*100)/100);
+            }
+        }
+        return refined;
     }
 
 }
