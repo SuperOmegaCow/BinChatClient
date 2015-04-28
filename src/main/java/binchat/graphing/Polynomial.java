@@ -49,7 +49,9 @@ public class Polynomial {
         DecimalFormat df = new DecimalFormat("#.##");
         String ret = "";
         for (int i = this.terms.length - 1; i >= 0; i--) {
-            if (this.terms[i] > 0) ret = ret + "+" + df.format(this.terms[i]);
+            if (this.terms[i] == 1) ret = ret + "+";
+            else if (this.terms[i] == -1) ret = ret + "-";
+            else if (this.terms[i]>0) ret = ret + "+" + df.format(this.terms[i]);
             else if (this.terms[i] == 0) continue;
             else ret = ret + df.format(this.terms[i]);
             if (i == 1) ret = ret + "x";
@@ -115,12 +117,18 @@ public class Polynomial {
     }
 
     // returns empty array if no real roots
-    public double[] factorQuadratic() {
-        double[] factors = new double[2];
-        double sqrt = Math.sqrt(Math.pow(this.terms[1], 2) - 4 * this.terms[2] * this.terms[3]);
-        if (sqrt >= 0) {
-            factors[0] = (-this.terms[1] + sqrt) / (2 * this.terms[2]);
-            factors[1] = (-this.terms[1] - sqrt) / (2 * this.terms[2]);
+    public String[] factorQuadratic() {
+        String[] factors = new String[2];
+        if(this.terms.length==3){
+            double sqrt = Math.sqrt(Math.pow(this.terms[1], 2) - 4 * this.terms[2] * this.terms[3]);
+            if (sqrt >= 0) {
+                factors[0] = ""+(-this.terms[1] + sqrt) / (2 * this.terms[2]);
+                factors[1] = ""+(-this.terms[1] - sqrt) / (2 * this.terms[2]);
+            }
+            else{
+                factors[0] = "-"+this.terms[1]+"+√("+(-sqrt)+")i/(" + (2*terms[2])+")";
+                factors[0] = "-"+this.terms[1]+"-√("+(-sqrt)+")i/(" + (2*terms[2])+")";
+            }
         }
         return factors;
     }
@@ -151,7 +159,6 @@ public class Polynomial {
         }
         //add a placeholder. this will never be checked by the loop and signifies the end of a loop.
         roots.add(3.1415926535);
-        System.out.println(roots);
         double counter = 0;
         double total = 0;
         // the estimated roots will be in series of x values.
@@ -171,6 +178,22 @@ public class Polynomial {
             }
         }
         return refined;
+    }
+    public ArrayList<Double> calculateMaxsMins(){
+        Polynomial derrivative = this.derivative();
+        ArrayList<Double> maxsmins = derrivative.getRoots();
+        ArrayList<Double> mins = new ArrayList<Double>();
+        ArrayList<Double> maxs = new ArrayList<Double>();
+        ArrayList<Double> ip = new ArrayList<Double>();
+
+        for (int i = 0; i < maxsmins.size(); i++) {
+            double lower = derrivative.evaluate(maxsmins.get(i)-0.1);
+            double upper = derrivative.evaluate(maxsmins.get(i)+0.1);
+            if (lower>0 && upper < 0) maxs.add(maxsmins.get(i));
+            else if (lower<0 && upper > 0) mins.add(maxsmins.get(i));
+            else ip.add(maxsmins.get(i));
+        }
+        return maxsmins;
     }
 
 }

@@ -5,14 +5,17 @@ import binchat.graphing.TemporaryWindow;
 import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
 
 import java.awt.event.WindowEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParserManager {
     TemporaryWindow temporaryWindow;
+    DecimalFormat decimalFormat;
     public ParserManager(){
         temporaryWindow = new TemporaryWindow();
         temporaryWindow.initialize();
+        decimalFormat = new DecimalFormat("#.##");
     }
     // takes the initial input line, and checks whether it should be dealt with by the command parser or sent to the chat
     public void parseChatLine(String chat_line){
@@ -104,7 +107,13 @@ public class ParserManager {
                 int PARAMETERS = 1;
                 if(chat_line.length()>0){
                     chat_line = chat_line.replace("factor", "");
-                    System.out.println("The roots are " + mathParser(chat_line).getRoots());
+                    System.out.print("The roots are ");
+                    ArrayList<Double> roots = mathParser(chat_line).getRoots();
+                    for (int i = 0; i < roots.size(); i++) {
+                        System.out.print(decimalFormat.format(roots.get(i)));
+                        if(i!=roots.size()-1) System.out.print(", ");
+                    }
+                    System.out.println();
                 }
                 else System.out.println("ERROR in factoring. Looking for 1 parameter, found 0.");
             }
@@ -151,28 +160,34 @@ public class ParserManager {
                         "/graph polynomial                                  will graph the function from x=-10 to x=10\n" +
                         "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
                         "/derivative polynomial                             will return the polynomial's derivative.\n" +
-                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n");
+                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n" +
+                        "/factorquadratic polynomial                        will factor a quadratic for its real or imaginary roots.");
             }
 
-
+            else if(command.equals("factorquadratic")){
+                chat_line = chat_line.replace("factorquadratic", "").replace(" ", "");
+            }
             else if(command.equals("add")){
                 int PARAMETERS = 2;
                 chat_line = chat_line.replace("add","").replace(" ", "");
-                if (chat_line.length()>0){
-
-                }
-                parameters(chat_line);
-                System.out.println();
+                if(chat_line.length()>0){
+                    ArrayList<String> para = parameters(chat_line);
+                    if(para.size()>=2){
+                        System.out.println(mathParser(para.get(0)).add(mathParser(para.get(1))).getEquation());
+                    }
+                }else System.out.println("ERROR in addition. Looking for 2 parameters, found 0.");
             }
             else if(command.equals("subtract")){
                 chat_line = chat_line.replace("subtract", "").replace(" ", "");
                 if(chat_line.length()>0){
                     ArrayList<String> para = parameters(chat_line);
                     if(para.size()>=2){
-
+                        System.out.println(mathParser(para.get(0)).subtract(mathParser(para.get(1))).getEquation());
                     }
-                }
+                }else System.out.println("ERROR in subtraction. Looking for 2 parameters, found 0.");
             }
+
+            // prints the function's derivative
             else if(command.equals("derivative")){
                 chat_line = chat_line.replace("derivative", "").replace(" ","");
                 if(chat_line.length()>0){
@@ -187,17 +202,7 @@ public class ParserManager {
             }
 
         }
-
-
-        /*
-        kick / disconnect
-        graph
-        factor
-        evaluate / calculate
-        help
-         */
     }
-    // removing command
 
     public Polynomial mathParser(String chat_line){
         // Parses a polynomial of the form y = x^2 + 4x - 4
@@ -212,36 +217,46 @@ public class ParserManager {
             if (x_index == 0) coefficent = 1;
             else{
                 String sub = chat_line.substring(0, x_index);
-                if(sub.equals("-")) sub = "1";
+                if(sub.equals("-")) sub = "-1";
                 else if(sub.length()==0) sub = "1";
                 coefficent = Double.parseDouble(sub);
             }
-
-            if(chat_line.substring(x_index+1,x_index+2).equals("^")) { // if after the x there is a caret
-                int degree_index = x_index + 2;
-                int end_index = degree_index;
-                while (end_index<chat_line.length()){ // will scan the string until it reaches a + or - sign (this is for degrees of 10 or higher)
-                    if (chat_line.charAt(end_index) == '+' || chat_line.charAt(end_index) == '-'){
-                        break;
+            if(chat_line.length()>0){
+                if(chat_line.contains("^")){
+                    if(chat_line.substring(x_index+1,x_index+2).equals("^")) { // if after the x there is a caret
+                        int degree_index = x_index + 2;
+                        int end_index = degree_index;
+                        while (end_index<chat_line.length()){ // will scan the string until it reaches a + or - sign (this is for degrees of 10 or higher)
+                            if (chat_line.charAt(end_index) == '+' || chat_line.charAt(end_index) == '-'){
+                                break;
+                            }
+                            end_index ++;
+                        }
+                        int degree = Integer.parseInt(chat_line.substring(degree_index, end_index)); // This as it is written, assumes degree less than 10
+                        if(degree+1 > terms.size()){
+                            int new_terms = degree+1 -(terms.size());
+                            for (int i = 0; i < new_terms; i++) {
+                                terms.add(terms.size()-1,0.0);
+                            }
+                        }
+                        terms.set(degree, terms.get(degree) +coefficent);
+                        chat_line = chat_line.substring(end_index, chat_line.length()); // shortens the string starting at the +/- sign
                     }
-                    end_index ++;
-                }
-                int degree = Integer.parseInt(chat_line.substring(degree_index, end_index)); // This as it is written, assumes degree less than 10
-                if(degree+1 > terms.size()){
-                    int new_terms = degree+1 -(terms.size());
-                    for (int i = 0; i < new_terms; i++) {
-                        terms.add(terms.size()-1,0.0);
+                    else{
+                        // If it does not have a caret, it is of degree 1
+                        terms.set(1, terms.get(1) + coefficent);
+                        if(x_index+1 != chat_line.length()) chat_line = chat_line.substring(x_index+1,chat_line.length());
+                        else chat_line = "";
                     }
                 }
-                terms.set(degree, terms.get(degree) +coefficent);
-                chat_line = chat_line.substring(end_index, chat_line.length()); // shortens the string starting at the +/- sign
+                else{
+                    // If it does not have a caret, it is of degree 1
+                    terms.set(1, terms.get(1) + coefficent);
+                    if(x_index+1 != chat_line.length()) chat_line = chat_line.substring(x_index+1,chat_line.length());
+                    else chat_line = "";
+                }
             }
-            else{
-                // If it does not have a caret, it is of degree 1
-                terms.set(1, terms.get(1) + coefficent);
-                if(x_index+1 != chat_line.length()) chat_line = chat_line.substring(x_index+1,chat_line.length());
-                else chat_line = "";
-            };
+
         }
         // once it finishes parsing the x terms, we need to add the constant term, represented as the zeroith degree
         chat_line.replace("+", "").replace(" ", "");
