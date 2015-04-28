@@ -101,7 +101,6 @@ public class ParserManager {
 
             // finds the roots of the polynomial
             else if(command.equals("factor")){
-                int PARAMETERS = 1;
                 if(chat_line.length()>0){
                     chat_line = chat_line.replace("factor", "");
                     System.out.println("The roots are " + mathParser(chat_line).getRoots());
@@ -158,8 +157,11 @@ public class ParserManager {
             else if(command.equals("add")){
                 int PARAMETERS = 2;
                 chat_line = chat_line.replace("add","").replace(" ", "");
-                if (chat_line.length()>0){
-
+                String[] polys = chat_line.split(",");
+                if (chat_line.length()>=0){
+                    Polynomial other = this.mathParser(polys[0]);
+                    Polynomial second = this.mathParser(polys[1]);
+                    System.out.println(other.add(second).getEquation());
                 }
                 parameters(chat_line);
                 System.out.println();
