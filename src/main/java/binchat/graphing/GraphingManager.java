@@ -39,6 +39,20 @@ public class GraphingManager extends Thread {
     }
 
     // TODO if no max/min given, choose fitting frame
+
+    public BufferedImage plotFunction(Rational rational, double xmin, double xmax, double ymin, double ymax) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) buffimg.getGraphics();
+        g.setBackground(Color.white);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        return buffimg;
+    }
+
     public BufferedImage plotFunction(Polynomial poly, double xmin, double xmax, double ymin, double ymax) {
         DecimalFormat df = new DecimalFormat("#.##");
         BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
