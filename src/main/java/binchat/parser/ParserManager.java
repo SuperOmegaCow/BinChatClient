@@ -2,6 +2,7 @@ package binchat.parser;
 
 import binchat.graphing.Polynomial;
 import binchat.graphing.TemporaryWindow;
+import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
 
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -62,6 +63,29 @@ public class ParserManager {
                                 Double.parseDouble(parameters.get(2)),
                                 Double.parseDouble(parameters.get(3)),
                                 Double.parseDouble(parameters.get(4)));
+                    }
+                    else if(parameters.size()==1){
+                        //makes a guess at what a suitable window might be
+                        Polynomial p = mathParser(parameters.get(0));
+                        ArrayList<Double> pRoots= p.getRoots();
+                        double xmax,xmin;
+                        System.out.println(pRoots);
+                        if(pRoots.size()!=0){
+                            xmin = pRoots.get(0);
+                            xmax = pRoots.get(0);
+                            for (int i = 0; i < pRoots.size(); i++) {
+                                if(pRoots.get(i)>xmax) xmax = pRoots.get(i);
+                                if(pRoots.get(i)<xmin) xmin = pRoots.get(i);
+                            }
+                        }
+                        else{
+                            //xmax = Math.abs(p.evaluate(10));
+                            xmax = 9;
+                            xmin = -xmax;
+                        }
+                        double y = Math.abs(p.evaluate(xmax + 1));
+                        if(Math.abs(p.evaluate(xmin-1))>y)y = Math.abs(p.evaluate(xmin - 1));
+                        temporaryWindow.display(p, xmin-1, xmax+1, -y, y);
                     }
                     else System.out.println("ERROR in graphing. Looking for "+ PARAMETERS +" parameters, found " + parameters.size());
                 }
@@ -125,9 +149,10 @@ public class ParserManager {
                         "/evaluate polynomial,double                        same as calculate: will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
                         "/factor polynomial                                 will return an estimate of the roots of the given polynomial\n" +
                         "/graph polynomial, x-min, x-max, y-min, y-max      will graph the function in the given window size.\n" +
+                        "/graph polynomial                                  will graph the function from x=-10 to x=10\n" +
                         "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
                         "/derivative polynomial                             will return the polynomial's derivative.\n" +
-                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2\n");
+                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n");
             }
 
 
@@ -139,6 +164,15 @@ public class ParserManager {
                 }
                 parameters(chat_line);
                 System.out.println();
+            }
+            else if(command.equals("subtract")){
+                chat_line = chat_line.replace("subtract", "").replace(" ", "");
+                if(chat_line.length()>0){
+                    ArrayList<String> para = parameters(chat_line);
+                    if(para.size()>=2){
+
+                    }
+                }
             }
             else if(command.equals("derivative")){
                 chat_line = chat_line.replace("derivative", "").replace(" ","");

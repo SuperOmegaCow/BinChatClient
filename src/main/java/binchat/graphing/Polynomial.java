@@ -150,16 +150,23 @@ public class Polynomial {
                 roots.add(i);
             }
         }
-        for (int i = 0; i < roots.size(); i++) {
-            try {
+        //add a placeholder
+        roots.add(3.1415926535);
+        System.out.println(roots);
+        double counter = 0;
+        double total = 0;
+        for (int i = 0; i < roots.size()-1; i++) {
                 if (roots.get(i) + INTERVAL != roots.get(i + 1)) {
-                    refined.add((double)Math.round(roots.get(i)*100)/100);
+                    counter ++;
+                    total += roots.get(i);
+                    refined.add((double)Math.round((total/counter)*100)/100);
+                    counter = 0;
+                    total = 0;
                 }
-            } catch (Exception e) {
-                if (roots.get(i) != roots.get(i-1) +INTERVAL){
-                    refined.add((double)Math.round(roots.get(i)*100)/100);
+                else{
+                    counter++;
+                    total += roots.get(i);
                 }
-            }
         }
         return refined;
     }
