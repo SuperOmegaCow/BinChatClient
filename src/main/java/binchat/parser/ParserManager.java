@@ -70,15 +70,29 @@ public class ParserManager {
                 chat_line = chat_line.replace("factor", "");
                 Polynomial polynomial = this.mathParser(chat_line);
                 String format = "{";
-                for(Double d : polynomial.getRealRoots()) {
+                for (Double d : polynomial.getRealRoots()) {
                     format += d + ",";
                 }
                 format = format.substring(0, format.length());
                 format += "}";
                 System.out.println(format);
             } else if (command.equals("evaluate")) {
+                double xVal = 0.0D;
                 chat_line = chat_line.replace("evaluate", "");
-                Polynomial polynomial = this.mathParser(chat_line);
+                chat_line = chat_line.replace(" ", "");
+                chat_line = chat_line.replace("=", "");
+                Polynomial polynomial = null;
+                if(chat_line.contains("f(x)")) {
+                    chat_line = chat_line.replace("f(x)", "");
+                    polynomial = this.mathParser(chat_line.substring(0, chat_line.indexOf(",")));
+                    chat_line = chat_line.substring(0, chat_line.indexOf(","));
+                    xVal = Double.parseDouble(chat_line);
+                } else {
+                    xVal = Double.parseDouble(chat_line.substring(2, chat_line.indexOf(")")));
+                    polynomial = this.mathParser(chat_line.substring(chat_line.indexOf(")" + 1, chat_line.length() - 1)));
+                }
+
+                System.out.println("Value of the function at " + xVal + " is equal to " + polynomial.evaluate(xVal));
 
             } else if (command.equals("help")) {
                 System.out.println(
