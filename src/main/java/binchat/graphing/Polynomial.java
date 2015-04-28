@@ -149,7 +149,7 @@ public class Polynomial {
                 roots.add(i);
             }
         }
-        //add a placeholder
+        //add a placeholder. this will never be checked by the loop and signifies the end of a loop.
         roots.add(3.1415926535);
         System.out.println(roots);
         double counter = 0;

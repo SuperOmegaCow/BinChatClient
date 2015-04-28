@@ -210,7 +210,12 @@ public class ParserManager {
             int x_index = chat_line.indexOf("x");
             double coefficent;
             if (x_index == 0) coefficent = 1;
-            else coefficent = Double.parseDouble(chat_line.substring(0, x_index));
+            else{
+                String sub = chat_line.substring(0, x_index);
+                if(sub.equals("-")) sub = "1";
+                else if(sub.length()==0) sub = "1";
+                coefficent = Double.parseDouble(sub);
+            }
 
             if(chat_line.substring(x_index+1,x_index+2).equals("^")) { // if after the x there is a caret
                 int degree_index = x_index + 2;
