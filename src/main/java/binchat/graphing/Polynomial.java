@@ -19,6 +19,14 @@ public class Polynomial {
         this.remainder = 0;
     }
 
+    public double getTerm(int x) {
+        return terms[x];
+    }
+
+    public int getHighestPower() {
+        return this.terms.length - 1;
+    }
+
     // given an x value, evaluate the function
     public double evaluate(double x) {
         double output = 0;
