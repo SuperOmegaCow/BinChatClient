@@ -128,7 +128,7 @@ public class Polynomial {
     public ArrayList<Double> getRealRoots() {
         ArrayList<Double> root = new ArrayList<>();
         final double a = this.terms[0];
-        final double b = this.terms[this.terms.length];
+        final double b = this.terms[this.terms.length - 1];
         final double acc = 0.001D;
         List<Double> possibilities = new ArrayList<>();
         possibilities.add(a);
@@ -141,35 +141,13 @@ public class Polynomial {
         possibilities.add(-a/b);
         for(Double d : possibilities) {
             double y = this.evaluate(d);
-            if(y == 0D || y <= acc || y >= -acc) {
-                root.add(y);
+            if(y == 0D) {
+                if(d == -0.0D)
+                    d = 0.0D;
+                root.add(d);
             }
         }
         return root;
     }
-
-    /*public ArrayList<Double> getRoots() {
-        // scan for estimates
-        final double accuracy = 25;
-        double previous = this.evaluate(-accuracy - 0.5);
-        double current = this.evaluate(-accuracy - 0.25);
-        boolean increasing;
-        if (current > previous)
-            increasing = true;
-        else increasing = false;
-        ArrayList<Double> temp = new ArrayList<Double>();
-        ArrayList<Double> fin = new ArrayList<Double>();
-        // gets rough estimate by testing integer values within the defined accuracy range
-        for (double x = -accuracy; x <= accuracy; x += 0.25) {
-            previous = current;
-            current = this.evaluate(x);
-            if (current == 0)
-                fin.add(x);
-        }
-
-        // find derivative
-
-        // check derivative at estimate
-    }*/
 
 }

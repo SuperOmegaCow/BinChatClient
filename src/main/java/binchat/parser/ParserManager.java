@@ -67,8 +67,18 @@ public class ParserManager {
                 System.out.println("CLOSING GRAPHING WINDOW.");
                 temporaryWindow.close();
             } else if (command.equals("factor")) {
-
+                chat_line = chat_line.replace("factor", "");
+                Polynomial polynomial = this.mathParser(chat_line);
+                String format = "{";
+                for(Double d : polynomial.getRealRoots()) {
+                    format += d + ",";
+                }
+                format = format.substring(0, format.length());
+                format += "}";
+                System.out.println(format);
             } else if (command.equals("evaluate")) {
+                chat_line = chat_line.replace("evaluate", "");
+                Polynomial polynomial = this.mathParser(chat_line);
 
             } else if (command.equals("help")) {
                 System.out.println(
@@ -109,7 +119,6 @@ public class ParserManager {
         terms.add(0, 0.0);
         terms.add(0, 0.0); // populates the basic polynomial, a binomial
         while (chat_line.contains("x")) { // while it has x terms
-            System.out.println(chat_line);
             if (chat_line.substring(0, 1).equals("+"))
                 chat_line = chat_line.substring(1, chat_line.length()); // removes + in front of coefficient
             int x_index = chat_line.indexOf("x");
@@ -145,7 +154,8 @@ public class ParserManager {
         }
         // once it finishes parsing the x terms, we need to add the constant term, represented as the zeroith degree
         chat_line.replace("+", "").replace(" ", "");
-        if (chat_line.length() > 0) terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
+        if (chat_line.length() > 0)
+            terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
         System.out.println(terms);
         // convert it to an array
         double[] output = new double[terms.size()];
