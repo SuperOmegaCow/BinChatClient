@@ -7,8 +7,8 @@ import java.text.DecimalFormat;
 
 public class GraphingManager extends Thread {
 
-    int SCREEN_WIDTH = 1920;
-    int SCREEN_HEIGHT = 1080;
+    public final int SCREEN_WIDTH = 1000;
+    public final int SCREEN_HEIGHT = 600;
     int INTERVALS = 8;
     public GraphingManager() {
         super("Graphing Thread");
