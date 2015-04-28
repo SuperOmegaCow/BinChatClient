@@ -69,6 +69,21 @@ public class ParserManager {
             } else if (command.equals("factor")) {
 
             } else if (command.equals("evaluate")) {
+                double xVal = 0;
+                int commaInd = chat_line.indexOf(",");
+                int chatLen = chat_line.length();
+                int endPara = chat_line.indexOf(")");
+                chat_line = chat_line.toLowerCase().replace(" ", "");
+                if (chat_line.substring(2,1).equals("x")){
+                    xVal = Double.parseDouble(chat_line.substring(commaInd, chatLen - 1));
+                }
+
+                else {
+                    xVal = Double.parseDouble(chat_line.substring(2, endPara - 2));
+                }
+
+                
+
 
             } else if (command.equals("help")) {
                 System.out.println(
