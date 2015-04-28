@@ -26,6 +26,7 @@ public class Handshake extends DefinedPacket {
 
     @Override
     public void write(ByteBuf buf) {
+        System.out.println("writing int " + nextState);
         writeVarInt(this.nextState, buf);
     }
 

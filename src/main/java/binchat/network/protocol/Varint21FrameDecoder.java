@@ -8,7 +8,7 @@ import io.netty.handler.codec.CorruptedFrameException;
 
 import java.util.List;
 
-public class FrameDecoder extends ByteToMessageDecoder {
+public class Varint21FrameDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {

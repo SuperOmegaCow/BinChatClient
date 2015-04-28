@@ -4,12 +4,14 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-public class FieldPrepender extends MessageToByteEncoder<ByteBuf> {
+public class Varint21LengthFieldPrepender extends MessageToByteEncoder<ByteBuf> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, ByteBuf msg, ByteBuf out) throws Exception {
         int bodyLen = msg.readableBytes();
         int headerLen = varintSize(bodyLen);
+        System.out.println("BodyLength " + bodyLen);
+        System.out.println("HeaderLength " + headerLen);
         out.ensureWritable(headerLen + bodyLen);
         DefinedPacket.writeVarInt(bodyLen, out);
         out.writeBytes(msg);

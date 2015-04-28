@@ -15,8 +15,12 @@ public class HandshakeHandler extends AbstractPacketHandler {
 
     @Override
     public void handle(Handshake handshake) throws Exception {
+        System.out.println("HANDSHAKE");
+        Thread.sleep(2);
         if(handshake.getNextState() == 1) {
+            System.out.println("Next state 1");
             this.getServerConnection().setState(State.LOGIN);
+            System.out.println("Sending login packet");
             this.getServerConnection().sendPacket(new LoginStart(this.getServerManager().getName()));
         }
     }

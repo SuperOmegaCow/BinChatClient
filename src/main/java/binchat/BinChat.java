@@ -3,6 +3,7 @@ package binchat;
 import binchat.graphing.Polynomial;
 import binchat.graphing.TemporaryWindow;
 import binchat.gui.GUIManager;
+import binchat.network.logic.Initializer;
 import binchat.network.logic.ServerManager;
 import binchat.parser.ParserManager;
 import io.netty.bootstrap.Bootstrap;
@@ -91,7 +92,7 @@ public class BinChat {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(group)
                     .channel(NioSocketChannel.class)
-                    .handler(serverManager)
+                    .handler(new Initializer(serverManager))
                     .connect(new InetSocketAddress(address, Integer.parseInt(port))).channel().close().syncUninterruptibly();
             guiManager.accepted();
         } catch (Exception e) {

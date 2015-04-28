@@ -3,12 +3,11 @@ package binchat.network.logic;
 import binchat.gui.GUIManager;
 import binchat.network.protocol.*;
 import binchat.network.protocol.packet.handshake.Handshake;
-import binchat.network.protocol.packet.login.LoginStart;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 
-public class ServerManager extends ChannelInitializer<Channel> {
+public class ServerManager {
 
     private ServerConnection serverConnection;
     private GUIManager guiManager;
@@ -25,18 +24,8 @@ public class ServerManager extends ChannelInitializer<Channel> {
         this.password = password;
     }
 
-    @Override
-    public void initChannel(Channel ch) throws Exception {
-        this.serverConnection = new ServerConnection(this, new ChannelWrapper(ch));
-        ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast("frame_decoder", new FrameDecoder());
-        pipeline.addLast("packet_decoder", new Decoder(HANDSHAKE));
-        pipeline.addLast("frame_encoder", new FieldPrepender());
-        pipeline.addLast("packet_encoder", new Encoder(HANDSHAKE));
-        pipeline.addLast("packet_handler", this.serverConnection);
-        Thread.sleep(30);
-        serverConnection.sendPacket(new Handshake(2));
-        serverConnection.setState(State.HANDSHAKE);
+    public void setServerConnection(ServerConnection serverConnection) {
+        this.serverConnection = serverConnection;
     }
 
     public GUIManager getGuiManager() {
