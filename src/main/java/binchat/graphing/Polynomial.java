@@ -48,14 +48,16 @@ public class Polynomial {
     // returns a string for the function
     public String getEquation() {
         DecimalFormat df = new DecimalFormat("#.##");
-        String ret = "f(x)=" + this.terms[this.terms.length - 1] + "x^" + (this.terms.length - 1);
-        for (int i = this.terms.length - 2; i >= 0; i--) {
+        String ret = "";
+        for (int i = this.terms.length - 1; i >= 0; i--) {
             if (this.terms[i] > 0) ret = ret + "+" + df.format(this.terms[i]);
             else if (this.terms[i] == 0) continue;
             else ret = ret + df.format(this.terms[i]);
             if (i == 1) ret = ret + "x";
             else if (i != 0) ret = ret + "x^" + i;
         }
+        if (ret.charAt(0)=='+')ret = ret.substring(1,ret.length());
+        ret = "y=" + ret;
         return ret;
     }
 
@@ -154,7 +156,9 @@ public class Polynomial {
                     refined.add((double)Math.round(roots.get(i)*100)/100);
                 }
             } catch (Exception e) {
-                refined.add((double)Math.round(roots.get(i)*100)/100);
+                if (roots.get(i) != roots.get(i-1) +INTERVAL){
+                    refined.add((double)Math.round(roots.get(i)*100)/100);
+                }
             }
         }
         return refined;

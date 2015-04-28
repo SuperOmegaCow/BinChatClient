@@ -42,13 +42,13 @@ public class Rational {
     }
 
     // Returns all the verticle asymptotes to the function
-    public List<Double> getVerticleAsym() {
+    /*public List<Double> getVerticleAsym() {
         ArrayList<Double> asym = new ArrayList<Double>();
         for(Double root : this.denominator.getRealRoots()) {
             asym.add(-root);
         }
         return asym;
-    }
+    }*/
 
     // returns a string for the function
     public String getEquation() {

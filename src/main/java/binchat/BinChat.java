@@ -34,28 +34,8 @@ public class BinChat {
 
             }
         });*/
-        Polynomial p = new Polynomial(new double[]{235200,-192080,-70117,23520,4371,-792,-111,8,1});
-        ///graph x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200,-9, 9, -350000, 900000
-        System.out.println(p.getRoots());
-        System.out.println(p.getEquation());
-        Polynomial q = new Polynomial(new double[]{2,3,4,5});
-        System.out.println(q.getEquation());
-        Polynomial mult = p.multiply(q);
-        System.out.println(mult.getEquation());
-        Polynomial add = p.add(q);
-        System.out.println(add.getEquation());
-        Polynomial sub = p.subtract(q);
-        System.out.println(sub.getEquation());
         Scanner in = new Scanner(System.in);
-        /*System.out.println("Please input the equation of the line you wish to draw, then the window coordinates.");
-        String chat = in.nextLine();
-        double xmin = in.nextDouble();
-        double xmax = in.nextDouble();
-        double ymin = in.nextDouble();
-        double ymax = in.nextDouble();
-        System.out.println(xmin + "    " + xmax + "    " + ymin + "    " + ymax);
-        TemporaryWindow temporaryWindow = new TemporaryWindow();
-        temporaryWindow.display(chat,xmin,xmax,ymin,ymax);*/
+        System.out.println("Welcome to the chat room. Type a message in a line to send it, or use commands to make calculations and graph functions. Type /help for more information and for a full list of commands.");
         boolean chatting = true;
         ParserManager parserManager = new ParserManager();
         while(chatting){

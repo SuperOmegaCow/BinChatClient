@@ -118,14 +118,16 @@ public class ParserManager {
                         "type the function name and then a space. Finally, give it the necessary parameters, delimited by commas. " +
                         "The following is an example to graph a polynomial:\n" +
                         "/graph x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200,-9,9,-350000,900000\n" +
-                        "This will graph the polynomial from x=-9 to x=9.\n" +
-                        "/add\t polynomial,polynomial" +
-                        "/calculate\t will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4 3\n" +
-                        "/disconnect\t will close the window and end the chat.\n" +
-                        "/evaluate\t\n" +
-                        "/factor\t\n" +
-                        "/graph\t will graph the function\n" +
-                        "/help\t you are looking at it now! Displays a list of all functions and their descriptions");
+                        "\n LIST OF COMMANDS:\n" +
+                        "/add polynomial,polynomial                         will add two polynomials and will return a new polynomial \n" +
+                        "/calculate polynomial, double                      will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
+                        "/disconnect                                        will close the graphing window if it is open.\n" +
+                        "/evaluate polynomial,double                        same as calculate: will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
+                        "/factor polynomial                                 will return an estimate of the roots of the given polynomial\n" +
+                        "/graph polynomial, x-min, x-max, y-min, y-max      will graph the function in the given window size.\n" +
+                        "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
+                        "/derivative polynomial                             will return the polynomial's derivative.\n" +
+                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2\n");
             }
 
 
@@ -137,6 +139,13 @@ public class ParserManager {
                 }
                 parameters(chat_line);
                 System.out.println();
+            }
+            else if(command.equals("derivative")){
+                chat_line = chat_line.replace("derivative", "").replace(" ","");
+                if(chat_line.length()>0){
+                    System.out.println(mathParser(chat_line).derivative().getEquation().replace("y", "y'"));
+                }
+                else System.out.println("ERROR in derivative. Looking for 1 parameter, found 0.");
             }
 
             // command not in list, print error
@@ -199,7 +208,6 @@ public class ParserManager {
         // once it finishes parsing the x terms, we need to add the constant term, represented as the zeroith degree
         chat_line.replace("+", "").replace(" ", "");
         if(chat_line.length()>0) terms.set(0, terms.get(0) + Double.parseDouble(chat_line));
-        System.out.println("Parsed polynomial. Coefficients are: " + terms);
         // convert it to an array
         double[] output = new double[terms.size()];
         for (int i = 0; i < terms.size(); i++) {
