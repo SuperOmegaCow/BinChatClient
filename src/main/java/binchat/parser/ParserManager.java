@@ -69,7 +69,6 @@ public class ParserManager {
                         Polynomial p = mathParser(parameters.get(0));
                         ArrayList<Double> pRoots= p.getRoots();
                         double xmax,xmin;
-                        System.out.println(pRoots);
                         if(pRoots.size()!=0){
                             xmin = pRoots.get(0);
                             xmax = pRoots.get(0);

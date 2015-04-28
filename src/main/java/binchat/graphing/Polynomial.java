@@ -10,9 +10,8 @@ public class Polynomial {
 
     double[] terms;
     double remainder;
-    private static final double INTERVAL = 0.001;
-    private static final double RANGE = 1000;
-    private static double ACCURACY = 0.001D;
+    private static final double INTERVAL = 0.0001;
+    private static final double RANGE = 100;
 
     public Polynomial(double[] terms) {
         this.terms = terms;
@@ -141,7 +140,7 @@ public class Polynomial {
     */
     
     public ArrayList<Double> getRoots() {
-        double ACCURACY = 1D;
+        double ACCURACY = 0.01D;
         ArrayList<Double> roots = new ArrayList<Double>();
         ArrayList<Double> refined = new ArrayList<Double>();
         for (double i = -RANGE; i < RANGE; i += INTERVAL) {
@@ -155,18 +154,21 @@ public class Polynomial {
         System.out.println(roots);
         double counter = 0;
         double total = 0;
+        // the estimated roots will be in series of x values.
+        // this will average the x values to get a more refined result, so as to not double count roots.
+        // note this is not by any means a perfect method, as it can be skewed for result non symmetrical functions.
         for (int i = 0; i < roots.size()-1; i++) {
-                if (roots.get(i) + INTERVAL != roots.get(i + 1)) {
-                    counter ++;
-                    total += roots.get(i);
-                    refined.add((double)Math.round((total/counter)*100)/100);
-                    counter = 0;
-                    total = 0;
-                }
-                else{
-                    counter++;
-                    total += roots.get(i);
-                }
+            if (roots.get(i) + INTERVAL != roots.get(i + 1)) {
+                counter ++;
+                total += roots.get(i);
+                refined.add((double)Math.round((total/counter)*100)/100);
+                counter = 0;
+                total = 0;
+            }
+            else{
+                counter++;
+                total += roots.get(i);
+            }
         }
         return refined;
     }
