@@ -4,21 +4,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
-public class GraphingManager extends Thread {
+public class GraphingManager{
 
     public final int SCREEN_WIDTH = 1000;
     public final int SCREEN_HEIGHT = 600;
     int INTERVALS = 8;
-
-    public GraphingManager() {
-        super("Graphing Thread");
-    }
-
-    @Override
-    public void run() {
-
-
-    }
 
     // gets the x double value for a give pixel
     public double xValue(int x_pixel_index, double lower_x, double upper_x) {
