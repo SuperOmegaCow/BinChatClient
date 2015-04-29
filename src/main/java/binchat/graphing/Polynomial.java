@@ -120,14 +120,14 @@ public class Polynomial {
     public String[] factorQuadratic() {
         String[] factors = new String[2];
         if(this.terms.length==3){
-            double sqrt = Math.sqrt(Math.pow(this.terms[1], 2) - 4 * this.terms[2] * this.terms[3]);
+            double sqrt = Math.pow(this.terms[1], 2) - 4 * this.terms[0] * this.terms[2];
             if (sqrt >= 0) {
-                factors[0] = ""+(-this.terms[1] + sqrt) / (2 * this.terms[2]);
-                factors[1] = ""+(-this.terms[1] - sqrt) / (2 * this.terms[2]);
+                factors[0] = ""+(-this.terms[1] + Math.sqrt(sqrt)) / (2 * this.terms[2]);
+                factors[1] = ""+(-this.terms[1] - Math.sqrt(sqrt)) / (2 * this.terms[2]);
             }
             else{
                 factors[0] = "-"+this.terms[1]+"+√("+(-sqrt)+")i/(" + (2*terms[2])+")";
-                factors[0] = "-"+this.terms[1]+"-√("+(-sqrt)+")i/(" + (2*terms[2])+")";
+                factors[1] = "-"+this.terms[1]+"-√("+(-sqrt)+")i/(" + (2*terms[2])+")";
             }
         }
         return factors;

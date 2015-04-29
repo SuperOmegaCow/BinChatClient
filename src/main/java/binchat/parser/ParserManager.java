@@ -146,26 +146,45 @@ public class ParserManager {
             else if(command.equals("help")){
                 System.out.println(
                         "****************HELP****************\n" +
-                        "Type a slash as the first character to denote that you want to use a function, then " +
-                        "type the function name and then a space. Finally, give it the necessary parameters, delimited by commas. " +
-                        "The following is an example to graph a polynomial:\n" +
-                        "/graph x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200,-9,9,-350000,900000\n" +
-                        "\n LIST OF COMMANDS:\n" +
-                        "/add polynomial,polynomial                         will add two polynomials and will return a new polynomial \n" +
-                        "/calculate polynomial, double                      will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
-                        "/disconnect                                        will close the graphing window if it is open.\n" +
-                        "/evaluate polynomial,double                        same as calculate: will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
-                        "/factor polynomial                                 will return an estimate of the roots of the given polynomial\n" +
-                        "/graph polynomial, x-min, x-max, y-min, y-max      will graph the function in the given window size.\n" +
-                        "/graph polynomial                                  will graph the function from x=-10 to x=10\n" +
-                        "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
-                        "/derivative polynomial                             will return the polynomial's derivative.\n" +
-                        "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n" +
-                        "/factorquadratic polynomial                        will factor a quadratic for its real or imaginary roots.");
+                                "Type a slash as the first character to denote that you want to use a function, then " +
+                                "type the function name and then a space. Finally, give it the necessary parameters, delimited by commas. " +
+                                "The following is an example to graph a polynomial:\n" +
+                                "/graph x^8+ 8x^7 - 111x^6 -792x^5 + 4371x^4 + 23520x^3 -70117x^2-192080x + 235200,-9,9,-350000,900000\n" +
+                                "\n LIST OF COMMANDS:\n" +
+                                "/add polynomial,polynomial                         will add two polynomials and will return a new polynomial \n" +
+                                "/calculate polynomial, double                      will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x + 4,3\n" +
+                                "/derivative polynomial                             will return the polynomial's derivative.\n" +
+                                "/disconnect                                        will close the graphing window if it is open.\n" +
+                                "/evaluate polynomial,double                        same as calculate: will evaluate a function, given the form f(3)= or f(x)= x^2 + 4x +4,3\n" +
+                                "/factor polynomial                                 will return an estimate of the roots of the given polynomial\n" +
+                                "/factorquadratic polynomial                        will factor a quadratic for its real or complex roots.\n" +
+                                "/graph polynomial                                  will graph the function from x=-10 to x=10\n" +
+                                "/graph polynomial, x-min, x-max, y-min, y-max      will graph the function in the given window size.\n" +
+                                "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
+                                "/minmax polynomial                                 will return the local mins, local maxes and inflection points of a polynomial.\n" +
+                                "/multiply polynomial, polynomial                   will multiply 2 polynomials and return a new polynomial\n" +
+                                "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n");
             }
-
+            else if(command.equals("multiply")){
+                chat_line = chat_line.replace("multiply", "").replace(" ", "");
+                if(chat_line.length()>0){
+                    ArrayList<String> para = parameters(chat_line);
+                    if(para.size()>=2){
+                        System.out.println(mathParser(para.get(0)).multiply(mathParser(para.get(1))).getEquation());
+                    }
+                    else System.out.println("ERROR in evaluating. Looking for "+ 2 +" parameters, found " + para.size());
+                }else System.out.println("ERROR in multiplication. Looking for 2 parameters, found 0.");
+            }
             else if(command.equals("factorquadratic")){
                 chat_line = chat_line.replace("factorquadratic", "").replace(" ", "");
+                if(chat_line.length()>0){
+                    Polynomial p = mathParser(chat_line);
+                    String[] factors = p.factorQuadratic();
+                    if(factors[0]!=null){
+                        System.out.println("The roots of the quadratic are " + factors[0] +" and " + factors[1]);
+                    }
+                    else System.out.println(p.getEquation()+" is not a quadratic.");
+                }else System.out.println("ERROR factoring. Looking for 1 parameter, found 0.");
             }
             else if(command.equals("add")){
                 int PARAMETERS = 2;
@@ -175,6 +194,7 @@ public class ParserManager {
                     if(para.size()>=2){
                         System.out.println(mathParser(para.get(0)).add(mathParser(para.get(1))).getEquation());
                     }
+                    else System.out.println("ERROR in addition. Looking for "+ 2 +" parameters, found " + para.size());
                 }else System.out.println("ERROR in addition. Looking for 2 parameters, found 0.");
             }
             else if(command.equals("subtract")){
@@ -184,6 +204,7 @@ public class ParserManager {
                     if(para.size()>=2){
                         System.out.println(mathParser(para.get(0)).subtract(mathParser(para.get(1))).getEquation());
                     }
+                    else System.out.println("ERROR in subtraction. Looking for "+ 2 +" parameters, found " + para.size());
                 }else System.out.println("ERROR in subtraction. Looking for 2 parameters, found 0.");
             }
 
