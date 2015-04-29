@@ -187,6 +187,14 @@ public class ParserManager {
                 }else System.out.println("ERROR in subtraction. Looking for 2 parameters, found 0.");
             }
 
+            else if(command.equals("minmax")){
+                chat_line = chat_line.replace("minmax", "").replace(" ","");
+                if(chat_line.length()>0){
+                    mathParser(chat_line).calculateMaxsMins();
+                }
+                else System.out.println("ERROR in Min/Max. Looking for 1 parameter, found 0.");
+            }
+
             // prints the function's derivative
             else if(command.equals("derivative")){
                 chat_line = chat_line.replace("derivative", "").replace(" ","");

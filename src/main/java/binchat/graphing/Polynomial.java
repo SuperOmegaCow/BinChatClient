@@ -193,6 +193,30 @@ public class Polynomial {
             else if (lower<0 && upper > 0) mins.add(maxsmins.get(i));
             else ip.add(maxsmins.get(i));
         }
+        if(maxs.size()>0){
+            System.out.print("Local maxes at: ");
+            for (int i = 0; i < maxs.size(); i++) {
+                System.out.print(maxs.get(i));
+                if(i!=maxs.size()-1) System.out.print(", ");
+            }
+            System.out.println();
+        }else System.out.println("No local maxes.");
+        if(mins.size()>0){
+            System.out.print("Local mins at: ");
+            for (int i = 0; i < mins.size(); i++) {
+                System.out.print(mins.get(i));
+                if(i!=mins.size()-1) System.out.print(", ");
+            }
+            System.out.println();
+        }else System.out.println("No local mins.");
+        if(ip.size()>0){
+            System.out.print("Inflection points at: ");
+            for (int i = 0; i < ip.size(); i++) {
+                System.out.print(ip.get(i));
+                if(i!=ip.size()-1) System.out.print(", ");
+            }
+            System.out.println();
+        }else System.out.println("No inflection points.");
         return maxsmins;
     }
 
