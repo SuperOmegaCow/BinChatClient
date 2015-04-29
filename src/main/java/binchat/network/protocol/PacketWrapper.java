@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol;
 
 import io.netty.buffer.ByteBuf;
@@ -29,3 +30,4 @@ public class PacketWrapper {
     }
 
 }
+*/

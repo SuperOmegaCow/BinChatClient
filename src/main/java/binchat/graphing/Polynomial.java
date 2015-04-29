@@ -1,10 +1,7 @@
 package binchat.graphing;
 
-import binchat.network.logic.State;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Polynomial {
 

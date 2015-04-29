@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet.handler;
 
 import binchat.network.logic.ServerConnection;
@@ -26,3 +27,4 @@ public class HandshakeHandler extends AbstractPacketHandler {
     }
 
 }
+*/

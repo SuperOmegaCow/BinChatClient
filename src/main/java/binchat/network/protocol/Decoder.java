@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol;
 
 import binchat.network.exception.BadPacketException;
@@ -46,3 +47,4 @@ public class Decoder extends ByteToMessageDecoder {
     }
 
 }
+*/

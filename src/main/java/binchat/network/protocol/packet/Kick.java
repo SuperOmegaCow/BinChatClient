@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet;
 
 import binchat.network.protocol.AbstractPacketHandler;
@@ -51,3 +52,4 @@ public class Kick extends DefinedPacket {
         this.name = name;
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet.chat;
 
 import binchat.network.protocol.AbstractPacketHandler;
@@ -39,3 +40,4 @@ public class ConnectedClient extends DefinedPacket {
         this.name = name;
     }
 }
+*/

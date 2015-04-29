@@ -1,5 +1,6 @@
 package binchat.network.protocol;
 
+/*
 import binchat.network.logic.ServerConnection;
 import binchat.network.logic.ServerManager;
 import binchat.network.protocol.packet.Kick;
@@ -66,3 +67,4 @@ public class AbstractPacketHandler {
         return serverConnection;
     }
 }
+*/

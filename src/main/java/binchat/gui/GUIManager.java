@@ -1,6 +1,6 @@
 package binchat.gui;
 
-import binchat.BinChat;
+/*import binchat.BinChat;
 import binchat.network.logic.ServerManager;
 
 public class GUIManager extends Thread {
@@ -66,4 +66,4 @@ public class GUIManager extends Thread {
 
     }
 
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet.login;
 
 import binchat.network.protocol.AbstractPacketHandler;
@@ -26,3 +27,4 @@ public class LoginSuccess extends DefinedPacket {
     }
 
 }
+*/

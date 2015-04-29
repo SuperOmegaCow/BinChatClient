@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet.login;
 
 import binchat.network.protocol.AbstractPacketHandler;
@@ -40,3 +41,4 @@ public class PasswordResponse extends DefinedPacket {
         this.password = password;
     }
 }
+*/

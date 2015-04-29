@@ -1,4 +1,5 @@
 package binchat.network.logic;
+/*
 
 import binchat.gui.GUIManager;
 import binchat.network.protocol.*;
@@ -56,3 +57,4 @@ public class ServerManager {
         return password;
     }
 }
+*/

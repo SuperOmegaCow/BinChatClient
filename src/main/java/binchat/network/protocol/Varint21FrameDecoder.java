@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol;
 
 import io.netty.buffer.ByteBuf;
@@ -37,3 +38,4 @@ public class Varint21FrameDecoder extends ByteToMessageDecoder {
     }
 
 }
+*/

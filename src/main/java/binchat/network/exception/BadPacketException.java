@@ -1,3 +1,4 @@
+/*
 package binchat.network.exception;
 
 public class BadPacketException extends RuntimeException {
@@ -11,3 +12,4 @@ public class BadPacketException extends RuntimeException {
     }
 
 }
+*/

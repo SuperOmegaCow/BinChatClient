@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol;
 
 import io.netty.channel.Channel;
@@ -53,3 +54,4 @@ public class ChannelWrapper {
 
 
 }
+*/

@@ -1,5 +1,6 @@
 package binchat.network.protocol.packet.handler;
 
+/*
 import binchat.network.logic.ServerConnection;
 import binchat.network.logic.ServerManager;
 import binchat.network.logic.State;
@@ -33,3 +34,4 @@ public class LoginHandler extends AbstractPacketHandler {
     }
 
 }
+*/

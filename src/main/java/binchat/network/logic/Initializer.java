@@ -1,4 +1,5 @@
 package binchat.network.logic;
+/*
 
 import binchat.network.protocol.*;
 import binchat.network.protocol.packet.handshake.Handshake;
@@ -27,3 +28,4 @@ public class Initializer extends ChannelInitializer<Channel> {
     }
 
 }
+*/

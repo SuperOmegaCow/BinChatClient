@@ -1,4 +1,5 @@
 package binchat.network.protocol;
+/*
 
 import io.netty.buffer.ByteBuf;
 
@@ -116,4 +117,4 @@ public abstract class DefinedPacket {
 
     public abstract void handle(AbstractPacketHandler handler) throws Exception;
 
-}
+}*/

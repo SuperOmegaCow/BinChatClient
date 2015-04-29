@@ -1,3 +1,4 @@
+/*
 package binchat.network.logic;
 
 import binchat.network.exception.BadPacketException;
@@ -106,3 +107,4 @@ public class ServerConnection extends ChannelInboundHandlerAdapter {
 
 
 }
+*/

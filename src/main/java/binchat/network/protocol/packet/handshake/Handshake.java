@@ -1,3 +1,4 @@
+/*
 package binchat.network.protocol.packet.handshake;
 
 import binchat.network.protocol.AbstractPacketHandler;
@@ -44,3 +45,4 @@ public class Handshake extends DefinedPacket {
     }
 
 }
+*/
