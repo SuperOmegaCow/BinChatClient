@@ -161,7 +161,8 @@ public class ParserManager {
                                 "/graph polynomial                                  will graph the function from x=-10 to x=10\n" +
                                 "/graph polynomial, x-min, x-max, y-min, y-max      will graph the function in the given window size.\n" +
                                 "/help                                              you are looking at it now! Displays a list of all functions and their descriptions\n" +
-                                "/minmax polynomial                                 will return the local mins, local maxes and inflection points of a polynomial.\n" +
+                                "/kick                                              same as disconnect: will close the graphing window if it is open.\n" +
+                                "/minmax polynomial                                 will return the local mins, local maxes and inflection points of a polynomial. Also returns the absolute maximum or minimum.\n" +
                                 "/multiply polynomial, polynomial                   will multiply 2 polynomials and return a new polynomial\n" +
                                 "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n");
             }

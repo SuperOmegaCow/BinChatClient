@@ -217,6 +217,29 @@ public class Polynomial {
             }
             System.out.println();
         }else System.out.println("No inflection points.");
+        int index=-1;
+        if(this.evaluate(100)>0 && this.evaluate(-100)>0){
+            double lowest =this.evaluate(100);
+            for (int i = 0; i < mins.size(); i++) {
+               if(this.evaluate(mins.get(i))<lowest) {
+                   index = i;
+                   lowest = this.evaluate(mins.get(i));
+               }
+            }
+            System.out.println("Absolute minimum = (" + mins.get(index) + ", " + Math.round(lowest*100)/100 + ")");
+        }else System.out.println("No absolute minimum.");
+
+        if(this.evaluate(100)<0 && this.evaluate(-100)<0){
+            double highest =this.evaluate(100);
+            for (int i = 0; i < maxs.size(); i++) {
+                if(this.evaluate(maxs.get(i))>highest){
+                    highest = this.evaluate(maxs.get(i));
+                    index = i;
+                }
+            }
+            System.out.println("Absolute maximum = (" + maxs.get(index) + ", " + Math.round(highest*100)/100 + ")");
+        }else System.out.println("No absolute maximum.");
+
         return maxsmins;
     }
 
