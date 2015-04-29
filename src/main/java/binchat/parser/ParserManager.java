@@ -1,5 +1,6 @@
 package binchat.parser;
 
+import binchat.BinChat;
 import binchat.graphing.Polynomial;
 import binchat.graphing.TemporaryWindow;
 import com.sun.javafx.scene.control.skin.DoubleFieldSkin;
@@ -22,6 +23,7 @@ public class ParserManager {
         if(chat_line.length()>0){
             if(chat_line.substring(0,1).equals("/")){
                 chat_line = chat_line.substring(1,chat_line.length());
+                //sends the string to the command parser below
                 commandParser(chat_line);
             }
             else {
@@ -32,7 +34,7 @@ public class ParserManager {
             }
         }
     }
-    // parses a string into its parameters
+    // parses a string into its parameters, delimited by commas
     public ArrayList<String> parameters(String chat_line){
         ArrayList<String> paras = new ArrayList<String>();
         int currentIndex = 0;
@@ -100,6 +102,7 @@ public class ParserManager {
             else if(command.equals("disconnect")){
                 System.out.println("CLOSING GRAPHING WINDOW.");
                 temporaryWindow.close();
+                BinChat.chatting = false;
             }
 
             // finds the roots of the polynomial
@@ -166,6 +169,8 @@ public class ParserManager {
                                 "/multiply polynomial, polynomial                   will multiply 2 polynomials and return a new polynomial\n" +
                                 "/subtract polynomial1,polynomial2                  will subtract polynomial1-polynomial2 and return a new polynomial\n");
             }
+
+            // polynomial expansion
             else if(command.equals("multiply")){
                 chat_line = chat_line.replace("multiply", "").replace(" ", "");
                 if(chat_line.length()>0){
@@ -176,6 +181,8 @@ public class ParserManager {
                     else System.out.println("ERROR in evaluating. Looking for "+ 2 +" parameters, found " + para.size());
                 }else System.out.println("ERROR in multiplication. Looking for 2 parameters, found 0.");
             }
+
+            //factoring using quadratic formula
             else if(command.equals("factorquadratic")){
                 chat_line = chat_line.replace("factorquadratic", "").replace(" ", "");
                 if(chat_line.length()>0){
@@ -187,6 +194,8 @@ public class ParserManager {
                     else System.out.println(p.getEquation()+" is not a quadratic.");
                 }else System.out.println("ERROR factoring. Looking for 1 parameter, found 0.");
             }
+
+            //addition command
             else if(command.equals("add")){
                 int PARAMETERS = 2;
                 chat_line = chat_line.replace("add","").replace(" ", "");
@@ -198,6 +207,8 @@ public class ParserManager {
                     else System.out.println("ERROR in addition. Looking for "+ 2 +" parameters, found " + para.size());
                 }else System.out.println("ERROR in addition. Looking for 2 parameters, found 0.");
             }
+
+            // subtract command
             else if(command.equals("subtract")){
                 chat_line = chat_line.replace("subtract", "").replace(" ", "");
                 if(chat_line.length()>0){

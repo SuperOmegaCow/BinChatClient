@@ -38,8 +38,8 @@ public class GraphingManager extends Thread {
         return (int) ((upper_y - y_value) / ((upper_y - lower_y) / SCREEN_HEIGHT));
     }
 
-    // TODO if no max/min given, choose fitting frame
-
+    // was written for graphing rational functions
+    /*
     public BufferedImage plotFunction(Rational rational, double xmin, double xmax, double ymin, double ymax) {
         DecimalFormat df = new DecimalFormat("#.##");
         BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -52,7 +52,8 @@ public class GraphingManager extends Thread {
 
         return buffimg;
     }
-
+*/
+    // Creates a buffered image of a given graph
     public BufferedImage plotFunction(Polynomial poly, double xmin, double xmax, double ymin, double ymax) {
         DecimalFormat df = new DecimalFormat("#.##");
         BufferedImage buffimg = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_RGB);

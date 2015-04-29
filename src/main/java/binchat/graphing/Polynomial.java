@@ -9,13 +9,12 @@ import java.util.List;
 public class Polynomial {
 
     double[] terms;
-    double remainder;
+    // these values are for determining desired accuracy for finding roots
     private static final double INTERVAL = 0.0001;
     private static final double RANGE = 100;
 
     public Polynomial(double[] terms) {
         this.terms = terms;
-        this.remainder = 0;
     }
 
     public double getTerm(int x) {
@@ -116,7 +115,9 @@ public class Polynomial {
         return new Polynomial(new_terms);
     }
 
-    // returns empty array if no real roots
+    // uses the quadratic formula to return real or complex roots in string form
+    // complex roots are not necessarily in reduced form
+    // returns empty array if no real roots with null values
     public String[] factorQuadratic() {
         String[] factors = new String[2];
         if(this.terms.length==3){
@@ -137,16 +138,8 @@ public class Polynomial {
         return new Rational(this, other);
     }
 
-    /*public Polynomial divide(Polynomial other){
-        double[] new_terms = new double[this.terms.length-other.terms.length+1];
-        double[] temp = this.terms;
-        for (int i = 1; i <= new_terms.length; i++) {
-            double coeff = Math.floor(this.terms[this.terms.length-i] / other.terms[other.terms.length-1]);
-        }
-
-    }
-    */
-    
+    // Get roots the brute force way, since we have the computing power.
+    // scans over a range, iterating by intervals defined by the CONSTANTS at the top
     public ArrayList<Double> getRoots() {
         double ACCURACY = 0.01D;
         ArrayList<Double> roots = new ArrayList<Double>();
@@ -179,6 +172,9 @@ public class Polynomial {
         }
         return refined;
     }
+
+    // Mins and Maxes are calculated based on the roots of the derivative
+    // by checking values left and right of the x value, it can be determined whether it is a min, max or IP
     public ArrayList<Double> calculateMaxsMins(){
         Polynomial derrivative = this.derivative();
         ArrayList<Double> maxsmins = derrivative.getRoots();
@@ -193,6 +189,7 @@ public class Polynomial {
             else if (lower<0 && upper > 0) mins.add(maxsmins.get(i));
             else ip.add(maxsmins.get(i));
         }
+        //print maxes
         if(maxs.size()>0){
             System.out.print("Local maxes at: ");
             for (int i = 0; i < maxs.size(); i++) {
@@ -201,6 +198,8 @@ public class Polynomial {
             }
             System.out.println();
         }else System.out.println("No local maxes.");
+
+        //print mins
         if(mins.size()>0){
             System.out.print("Local mins at: ");
             for (int i = 0; i < mins.size(); i++) {
@@ -209,6 +208,8 @@ public class Polynomial {
             }
             System.out.println();
         }else System.out.println("No local mins.");
+
+        //print inflection points
         if(ip.size()>0){
             System.out.print("Inflection points at: ");
             for (int i = 0; i < ip.size(); i++) {
@@ -217,6 +218,8 @@ public class Polynomial {
             }
             System.out.println();
         }else System.out.println("No inflection points.");
+
+        // Find absolute Maxs/Mins if they exist
         int index=-1;
         if(this.evaluate(100)>0 && this.evaluate(-100)>0){
             double lowest =this.evaluate(100);
@@ -239,7 +242,7 @@ public class Polynomial {
             }
             System.out.println("Absolute maximum = (" + maxs.get(index) + ", " + Math.round(highest*100)/100 + ")");
         }else System.out.println("No absolute maximum.");
-
+        //returns maxs, mins and ip in one arraylist
         return maxsmins;
     }
 
